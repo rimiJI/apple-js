@@ -1,0 +1,13 @@
+
+.alter-box {
+  background-color: skyblue;
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+  display : none ;
+  /* 
+    UI를 평소에 숨기고 싶으면 display : none
+    다시 보여주고 싶으면 display : block 
+    싫으면 visibility : hidden
+    */
+}
