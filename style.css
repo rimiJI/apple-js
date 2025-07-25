@@ -11,3 +11,17 @@
     싫으면 visibility : hidden
     */
 }
+
+/* Bootstrap이 제공하는 link에 CSS 규칙이 있습니다.
+   이 규칙은 .list-group 클래스를 가진 요소를 숨깁니다.
+   .list-group { display: flex; ... }에 해당하는데
+    이 규칙을 덮어쓰려면 !important를 사용합니다.
+    
+*/
+.list-group{
+  display: none !important;
+}
+
+.show{
+  display: block;
+}
