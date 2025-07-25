@@ -1,0 +1,32 @@
+<!-- function의 parameter 문법!
+일명 구멍문법!
+특징! 
+수학에서 함수.와 같이 마법의 모자를 만들때 사용 -->
+
+<!-- 
+html
+아이디입력하세요창 ->클래스는 html에있는거, id는 만들기 
+비번입력하세요창 ->클래스는 html에있는거, id는 만들기 
+버튼1 -> 버튼누르면=구멍함수실행
+버튼2 -> 버튼누르면=구멍함수실행
+
+javsScript
+파라미터 있는 함수 
+-->
+
+<head>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class='alter-box' id="IDinput">아이디를 입력하세요</div>
+  <div class='alter-box' id="PWinput">비번을 입력하세요</div>
+  <button onClick="btn('block','IDinput')">ID</button>
+  <button onClick="btn('block','PWinput')">PW</button>
+
+  <script>
+    function btn(para,pwid){
+      document.getElementById(pwid).style.display= para;
+        }
+  </script>
+</body>
