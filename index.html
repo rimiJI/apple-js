@@ -1,13 +1,9 @@
-<!-- ID창, PW창 각각 열고 끄기 버튼 기능 구현 -->
-
-<!-- function의 parameter 문법!
-일명 구멍문법!
-특징! 
-수학에서 함수.와 같이 마법의 모자를 만들때 사용 -->
+<!-- 이벤트리스너 -->
 
 <!-- 
-1. 버튼1 누르면 alert 박스 안의 제목을 "아이디입력하세요"로 바꾸고
-2. alert 박스 띄우기 
+onclick 말고 addEventListener 로 바꾸기
+1.버튼의 onClick = ~ 을 id로 바꾼다. 
+2.script 안에 document.getElementById(아이디값).addEventListener('뭐하면',실행함수)
 -->
 
 <head>
@@ -15,11 +11,13 @@
 </head>
 
 <body>
+  <!-- 이벤트리스너로 닫기버튼 -->
+  <div class="alter-box" style="display: block" id="처음부터켜있음">
+    처음부터 켜있는 글씨 <button id="닫기버튼ID">✕EventListener✕</button>
+  </div>
+
   <div class="alter-box" id="alter">
-    <p id="titleText">
-      알림창
-      <!-- <button onclick="닫혀라()">✂️</button> -->
-    </p>
+    <p id="titleText">바뀔알림창</p>
   </div>
   <button onClick="아이디열려라()">ID</button>
   <button onClick="비번열려라()">PW</button>
@@ -29,25 +27,27 @@
   <script>
     const 닫기버튼 = "<button onclick=닫혀라()>✂️</button>";
 
-    
+    // 이벤트리스너로 닫기버튼
+    document.getElementById("닫기버튼ID").addEventListener("click", () => {
+      document.getElementById("처음부터켜있음").style.display = "none";
+    });
+
     function 아이디열려라() {
       document.getElementById("alter").style.display = "block";
       document.getElementById("titleText").innerHTML =
-      "🐿️ID를 입력하세요 <button onclick=닫혀라()>✂️</button>";
+        "🐿️ID를 입력하세요 <button onclick=닫혀라()>✂️</button>";
     }
-    
+
     function 비번열려라() {
       document.getElementById("alter").style.display = "block";
       document.getElementById("titleText").innerHTML =
-      "🗝️PW를 입력하세요" + 닫기버튼;
+        "🗝️PW를 입력하세요" + 닫기버튼;
     }
-    
+
     function 닫혀라() {
       document.getElementById("alter").style.display = "none";
     }
-    
+
     document.getElementsByClassName("title1")[1].innerHTML = "바뀌었다!";
-
-
   </script>
 </body>
