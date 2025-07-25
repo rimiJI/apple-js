@@ -5,10 +5,7 @@
 특징! 
 수학에서 함수.와 같이 마법의 모자를 만들때 사용 -->
 
-<!-- 
-1. 버튼1 누르면 alert 박스 안의 제목을 "아이디입력하세요"로 바꾸고
-2. alert 박스 띄우기 
--->
+
 
 <head>
   <link rel="stylesheet" href="style.css" />
@@ -16,7 +13,7 @@
 
 <body>
   <div class="alter-box" id="alter">
-    <p>
+    <p id="titleText">
       알림창
       <!-- <button onclick="닫혀라()">✂️</button> -->
     </p>
@@ -29,12 +26,12 @@
 
     function 아이디열려라() {
       document.getElementById("alter").style.display = "block";
-      document.getElementById("alter").innerHTML = "ID를 입력하세요 <button onclick=닫혀라()>✂️</button>" ;
+      document.getElementById("titleText").innerHTML = "🐿️ID를 입력하세요 <button onclick=닫혀라()>✂️</button>" ;
     }
 
     function 비번열려라() {
       document.getElementById("alter").style.display = "block";
-      document.getElementById("alter").innerHTML = "PW를 입력하세요"+ 닫기버튼;
+      document.getElementById("titleText").innerHTML = "🗝️PW를 입력하세요"+ 닫기버튼;
     }
 
     function 닫혀라() {

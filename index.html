@@ -16,29 +16,38 @@
 
 <body>
   <div class="alter-box" id="alter">
-    <p>
+    <p id="titleText">
       알림창
       <!-- <button onclick="닫혀라()">✂️</button> -->
     </p>
   </div>
   <button onClick="아이디열려라()">ID</button>
   <button onClick="비번열려라()">PW</button>
+  <p class="title1">안바뀜</p>
+  <p class="title1">안바뀜</p>
 
   <script>
-    const 닫기버튼 = '<button onclick=닫혀라()>✂️</button>'
+    const 닫기버튼 = "<button onclick=닫혀라()>✂️</button>";
 
+    
     function 아이디열려라() {
       document.getElementById("alter").style.display = "block";
-      document.getElementById("alter").innerHTML = "ID를 입력하세요 <button onclick=닫혀라()>✂️</button>" ;
+      document.getElementById("titleText").innerHTML =
+      "🐿️ID를 입력하세요 <button onclick=닫혀라()>✂️</button>";
     }
-
+    
     function 비번열려라() {
       document.getElementById("alter").style.display = "block";
-      document.getElementById("alter").innerHTML = "PW를 입력하세요"+ 닫기버튼;
+      document.getElementById("titleText").innerHTML =
+      "🗝️PW를 입력하세요" + 닫기버튼;
     }
-
+    
     function 닫혀라() {
       document.getElementById("alter").style.display = "none";
     }
+    
+    document.getElementsByClassName("title1")[1].innerHTML = "바뀌었다!";
+
+
   </script>
 </body>
