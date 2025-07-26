@@ -19,9 +19,9 @@
     
 */
 .list-group{
-  display: none !important;
+  display: none ;
 }
 
 .show{
-  display: block;
+  display: block !important;
 }
