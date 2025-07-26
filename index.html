@@ -2,9 +2,14 @@
 
 <!-- 
 1.메뉴창 껏켯 가능하게 : 이벤트리스너에서 Class를 add로 추가가 아닌 toggle로 바꾸기
-2. 
-3.  
-4.  
+
+쿼리셀렉터란? 
+CSS문법 그대로 선택할수 있게 겟엘리먼트 ~ 그런거 안쓰고 바로 쓸수있는것
+()괄호 안 ('#id', '.class', 'tag') 이런식으로 쓸수있음
+
+2.쿼리셀렉터 querySelector() : 맨 위에 나오는 한개만 찾아줌
+3.쿼리셀렉터올 querySelectorAll() : 모든 요소를 찾아줌. 인덱스로 선택할수도 있음
+ 
 
 
  -->
@@ -40,12 +45,7 @@
       <li class="list-group-item">A fourth item</li>
       <li class="list-group-item">And a fifth one</li>
     </ul>
-    <!-- 외부 JS 파일을 불러올 때는,
-    스크립트 내용을 <script> 태그 안에 직접 작성하면 실행되지 않음.
-
-    🍀해결 방법
-    외부 JS 파일용 <script> 태그에는 src만 쓰고, 내부 코드는 작성하지 않는다.
-    직접 작성한 JS 코드는 별도의 <script> 태그에 작성해야 함 -->
+ 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
@@ -54,15 +54,13 @@
 
     <script>
       // 버튼무르면 ul에 show
-      // [0] 인덱스를 붙이는 이유: ClassName이 하나여도 혹시 나중에 등장할지모르니깐 붙여주는 습관을 들이자
-      // addEventListener에 L을 ㅣ로 오타
       document
-        .getElementsByClassName("navbar-toggler")[0]
+        .querySelectorAll(".navbar-toggler")[0]
         .addEventListener("click", function () {
           // list-group에 show 클래스 추가해주세요~
           document
-            .getElementsByClassName("list-group")[0]
-            .classList.add("show");
+            .querySelectorAll(".list-group")[0]
+            .classList.toggle("show");
         });
     </script>
   </body>
