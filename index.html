@@ -1,10 +1,26 @@
 <!-- jQuery 숙제 - 버튼누르면 모달창 떠야함-->
-<head></head>
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
 <body>
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <button class="btn btn-danger" id="close">닫기</button>
+    </div>
+  </div>
   <button id="login">로그인</button>
+
   <script>
-    document.querySelector("#login").on("click", () => {
+    // JQuery로 모달생성 Class추가
+    $("#login").on("click", () => {
       $(".black-bg").addClass("show-modal");
+    });
+
+    //바닐라JS 메서드로 DOM요소 선택
+    document.querySelector("#close").addEventListener("click", function () {
+      document.querySelector(".black-bg").classList.remove("show-modal");
     });
   </script>
 </body>
