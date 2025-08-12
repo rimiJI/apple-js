@@ -25,3 +25,11 @@
 .show{
   display: block !important;
 }
+
+.black-bg{
+  display: none;
+}
+
+.show-modal{
+  display: block;
+}
