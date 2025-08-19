@@ -11,6 +11,7 @@
       integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <div class="black-bg">
@@ -27,6 +28,22 @@
       </div>
     </div>
 
-    <script></script>
+    <script>
+      //전송버튼 누르면
+      //input값에 입력한값이 공백이면 알림창 띄워줘
+      // input 요소의 값 가져오기 document.getElementById("myInput").value;
+      // 전송버튼 누르면
+      $("form").on("submit", function (event) {
+        event.preventDefault(); // 기본 동작 막기
+
+        if (document.getElementById("email").value == "") {
+          alert("아이디 입력하쇼");
+        } else {
+          // 여기에 통과했을 때만 이동하게 처리 가능
+          // 예: location.href = "success.html";
+          // 또는 this.submit(); 으로 진짜 제출 실행 가능
+        }
+      });
+    </script>
   </body>
 </html>
