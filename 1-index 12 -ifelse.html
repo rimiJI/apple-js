@@ -21,11 +21,28 @@
           <div class="my-3">
             <input type="text" class="form-control" id="email" />
           </div>
-          <div class="my-3"><input type="password" class="form-control" /></div>
+          <div class="my-3">
+            <input type="password" class="form-control" id="pw" />
+          </div>
           <button type="submit" class="btn btn-primary" id="send">전송</button>
           <button type="button" class="btn btn-danger" id="close">닫기</button>
         </form>
       </div>
+    </div>
+    <!--이건 설명-->
+    <div class="summary" style="margin: 50px">
+      <details>
+        <summary>
+          else if는 "그게아니면만약에"<br /><span
+            style="color: blue; font-weight: bold; padding-left: 1em"
+            >왜 if 나열하면 되지 굳이 else if를 쓸까?</span
+          >
+        </summary>
+        <p style="color: rgb(0, 161, 161); padding-left: 1em">
+          if 문이 2개면 → 위에 if문이 참이든아니든 실행<br />if + else if가
+          있으면 → 위가 참이면 else if는 스킵
+        </p>
+      </details>
     </div>
 
     <script>
@@ -33,15 +50,19 @@
       //input값에 입력한값이 공백이면 알림창 띄워줘
       // input 요소의 값 가져오기 document.getElementById("myInput").value;
       // 전송버튼 누르면
-      $("form").on("submit", function (event) {
-        event.preventDefault(); // 기본 동작 막기
+      $("form").on("submit", function (e) {
+        e.preventDefault(); // 기본 동작 막기 (폼 전송 막기)
 
-        if (document.getElementById("email").value == "") {
+        //if (document.getElementById('email').value == '')
+        if ($("#email").val() == "") {
           alert("아이디 입력하쇼");
-        } else {
-          // 여기에 통과했을 때만 이동하게 처리 가능
-          // 예: location.href = "success.html";
-          // 또는 this.submit(); 으로 진짜 제출 실행 가능
+        }
+
+        //if (document.getElementById('pw').value == '')
+        if ($("#pw").val() == "") {
+          alert("비밀번호를 입력하랏");
+        } else if ($("#pw").val().length < 6) {
+          alert("비번 왤케 짧음?");
         }
       });
     </script>
