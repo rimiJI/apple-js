@@ -35,7 +35,7 @@
   background : rgba(0,0,0,0.5);
   z-index : 5;
   padding: 30px;
-  display: none;
+  /* display: none; */
 }
 .white-bg {
   background: white;

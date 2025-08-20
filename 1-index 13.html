@@ -1,0 +1,64 @@
+<!-- input, change 이벤트와 and, or 연산자 -->
+<!-- 애드이벤트리스너 input에 대하여 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <div class="black-bg">
+      <div class="white-bg">
+        <h4>로그인하세요</h4>
+        <form action="success.html">
+          <div class="my-3">
+            <input type="text" class="form-control" id="email" />
+          </div>
+          <div class="my-3">
+            <input type="password" class="form-control" id="pw" />
+          </div>
+          <button type="submit" class="btn btn-primary" id="send">전송</button>
+          <button type="button" class="btn btn-danger" id="close">닫기</button>
+        </form>
+      </div>
+    </div>
+    <!--이건 설명-->
+    <div class="summary" style="margin: 50px"></div>
+
+    <script>
+      //애드이벤트리스너 input
+      //이거 신기하당. 입력하면 콘솔창에 막 뜬다
+      document.getElementById("email").addEventListener("input", function () {
+        console.log("입력했다!");
+      });
+
+      //전송버튼 누르면
+      //input값에 입력한값이 공백이면 알림창 띄워줘
+      // input 요소의 값 가져오기 document.getElementById("myInput").value;
+      // 전송버튼 누르면
+      $("form").on("submit", function (e) {
+        e.preventDefault(); // 기본 동작 막기 (폼 전송 막기)
+
+        //if (document.getElementById('email').value == '')
+        if ($("#email").val() == "") {
+          alert("아이디 입력하쇼");
+        }
+
+        //if (document.getElementById('pw').value == '')
+        if ($("#pw").val() == "") {
+          alert("비밀번호를 입력하랏");
+        } else if ($("#pw").val().length < 6) {
+          alert("비번 왤케 짧음?");
+        }
+      });
+    </script>
+  </body>
+</html>
