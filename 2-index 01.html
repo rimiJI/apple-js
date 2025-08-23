@@ -1,0 +1,67 @@
+<head>
+  <title>assignment</title>
+</head>
+<body>
+  <p>태조 이성계가 태어난 년도는?</p>
+  <input type="text" id="answer" />
+  <button id="send-answer">제출</button>
+
+  <div>
+    남의 코드 읽고 해석하는건 매우 어려운 일입니다. <br /><span
+      style="color: rgb(226, 32, 32); font-weight: bold"
+      >한글먼저 써놓고 직접 하나하나 어설프게 짜보는게 더 이해가 쉬움 </span
+    ><br />이해없이 그냥 따라치고 "아 이렇게 짜면 되는구나~" 하고 넘어가면 코딩
+    인생 끝납니다
+  </div>
+
+  <script>
+    // 🍎이자율 계산하기
+    // 첫 예금액이 5만원 미만이면 이율이 연 15퍼센트, (이자 15%가 2번 붙음)
+    // 첫 예금액이 5만원 이상이면 이율이 연 20퍼센트 (이자 20%가 2번 붙음)
+    // (1) 변수에 예금액을 넣으면
+    // (2) 2년 후의 총 예금액을 자동으로 콘솔창에 출력해주는 기능을 자바스크립트로 만들려고하는데
+
+    // let deposit = prompt("입력하세요");
+    // let Total = 0;
+
+    // if (deposit < 50000) {
+    //   Total = deposit * 1.15 * 1.15;
+    // } else {
+    //   Total = deposit * 1.2 * 1.2;
+    // }
+
+    // console.log(Total);
+
+    // //🍎최대한 마실 수 있는 커피양
+    // // 3분의 2만큼 총 2번 리필해주는 카페
+    // let first = 360;
+    // let total = first * (1 + 2 / 3 + 4 / 9);
+    // console.log(total);
+
+    // 🍎퀴즈 UI
+    // 제출 카운트 세는 것
+    let count = 0;
+    document
+      .querySelector("#send-answer")
+      .addEventListener("click", function () {
+        count += 1;
+        let answer = document.querySelector("#answer").value;
+        console.log(answer); //콘솔창에 확인해보기
+        if (count > 3 || answer !== "1335") {
+          alert("제출한 값: " + answer + "\n" + "틀렸습니다.");
+        } else {
+          alert("성공! 1335년도 맞습니다.");
+        }
+      });
+
+    //🤔
+    //let answer = document.querySelector("#answer").value;
+    //이걸 이벤트리스너 안에 넣는 이유:
+    //A. 변수를 만들 때 언제 만들지 잘 결정해야하는데
+    // 우리가 필요한건 script속 1회 발생하는 게 아닌
+    // ⭐이벤트리스너 누를때마다 변수가 새로 할당되어야하니깐!!
+
+    //🤔곱하기 여러번인 거듭제곱연산자는?
+    //10**3 은 10*10*10 이다.
+  </script>
+</body>
