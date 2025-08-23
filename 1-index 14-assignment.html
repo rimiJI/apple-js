@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>삼육구게임</title>
+  </head>
+  <body>
+    <script>
+      // 🍎내가 푼 것
+      //   function 삼육구게임() {
+      //     let value = prompt("몇?");
+      //     if (value % 3 == 0) {
+      //       alert("박수");
+      //     } else if (value === "" || value === 0 || isNaN(value)) {
+      //       alert("입력값: " + value + "\n9 숫자를 입력하세요");
+      //     } else {
+      //       alert("통과");
+      //     }
+      //   삼육구게임();
+
+      // 🍎답
+      //   function 삼육구게임답(num) {
+      //     if (num % 3 == 0) {
+      //       console.log("박수");
+      //     } else {
+      //       console.log("통과");
+      //     }
+      //   }
+      //   삼육구게임답(22);
+
+      //   // 🍎두번째 내가푼것
+      //   function 삼육구게임2() {
+      //     let num = prompt("숫자 입력");
+      //     if (num % 3 == 0 && num % 9 != 0) {
+      //       console.log("박수");
+      //     } else if (num % 9 == 0) {
+      //       console.log("박수 X 2");
+      //     } else {
+      //       console.log("통과");
+      //     }
+      //   }
+      //   삼육구게임2();
+
+      //   //🍎두번째 답
+      //   function 삼육구게임2답(num) {
+      //     if (num % 9 == 0) {
+      //       console.log("박수x2");
+      //     } else if (num % 3 == 0) {
+      //       console.log("박수");
+      //     } else {
+      //       console.log("통과");
+      //     }
+      //   }
+      //   삼육구게임2답(18);
+
+      //   🍎시험점수를 입력하면 합격인지 알려주는 함수
+      //a,b값 입력하는거.
+      // 함수 - 합산값이 120이상 && 둘 다 40이상
+      //     - 그 외 불합
+      function passed() {
+        let a = prompt("첫번째 점수", 0);
+        let b = prompt("첫번째 점수", 0);
+        if (a + b >= 120 && a >= 40 && b >= 40) {
+          alert("합격");
+        } else {
+          alert("불합격");
+        }
+      }
+      passed();
+    </script>
+  </body>
+</html>

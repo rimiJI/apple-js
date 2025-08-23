@@ -34,7 +34,8 @@
     <div class="summary" style="margin: 50px"></div>
 
     <script>
-      //애드이벤트리스너 input
+      //애드이벤트리스너 "input"
+      // ("change"도 유사; 하지만 커서를 다른데찍어야 즉, input값변경+focus잃을때 발생)
       //이거 신기하당. 입력하면 콘솔창에 막 뜬다
       document.getElementById("email").addEventListener("input", function () {
         console.log("입력했다!");
