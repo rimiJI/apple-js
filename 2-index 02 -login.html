@@ -44,7 +44,7 @@
       emailInput.addEventListener("input", () => {
         console.log("아이디 입력함!");
       });
-      //폼에 제출 눌러도 기본동작인 폼 전송 막기
+      //폼에 전송제출 눌러도 기본동작인 폼 전송 막기
       formSubmit.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -60,6 +60,11 @@
         } else if (/[A-Z]/.test(pwInput.value) == false) {
           alert("대문자를 1자라도 입력하세요");
         }
+      });
+
+      // '닫기' 버튼 누르면 모달창 닫기
+      document.getElementById("close").addEventListener("click", () => {
+        document.querySelector(".black-bg").style.display = "none";
       });
     </script>
   </body>
