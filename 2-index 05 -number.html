@@ -1,0 +1,37 @@
+<html>
+  <title>숫자관련</title>
+</html>
+<body>
+  <script>
+    //반올림하고 문자로 반환
+    //숫자.toFixed(소숫점자릿수)
+    console.log((1.15 + 0.3).toFixed(1));
+    //숫자로바꾸기 Number()
+    console.log(Number((1.1 + 0.3).toFixed(1)));
+    console.log(Number("123")); // 123
+    console.log(Number("abc")); // NaN
+    console.log(parseInt("abc")); // NaN
+    console.log(parseFloat("abc")); // NaN
+    //진법전환시parseInt
+    console.log(parseInt("0101", 2)); //5
+
+    //Q1. 함수에 분과 초를 차례로 파라미터로 입력하면 ms단위로 바꿔서 뱉어주는 함수
+    //1초==1000ms
+    function timeToMs(minutes, seconds) {
+      return (minutes * 60 + seconds) * 1000;
+    }
+    console.log(timeToMs(1, 30)); //90000
+    console.log(timeToMs(2, 10)); //130000
+
+    //Q2. 첫 구매면 10% 할인된 가격을 뱉는 함수
+    // 가격 *0.9 , 첫 구매이면?
+    function firstDiscount(price, first) {
+      if (first == true) {
+        return Number((price * 0.9).toFixed(1));
+      }
+      return price;
+    }
+    console.log(firstDiscount(70, false)); // 70
+    console.log(firstDiscount(10, true)); // 9.0
+  </script>
+</body>
