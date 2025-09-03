@@ -61,3 +61,14 @@
 .slide-box img {
   width: 100%;
 }
+
+/* Nav바 스크롤 */
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+}
+.navbar-brand {
+  font-size: 100px;
+  transition: all 1s;
+}

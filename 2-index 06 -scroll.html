@@ -1,0 +1,70 @@
+<!-- 스크롤을 내리면 nav바가 줄어들게 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand">Navbar</span>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 페이지를 길게 만들어 스크롤이 가능하도록 임시 div 추가 -->
+    <div style="height: 3000px"></div>
+
+    <script>
+      //   // 스크롤을 조작하면 안녕이 출력되게
+      //   //window는 그냥 전체페이지임. doucment도 전체페이지인데 그보다 조금 큰 개념.
+      //   //scroll 이벤트리스너는 관습적으로 window붙임
+
+      // 알림창 중복 표시를 막기 위한 변수
+      let alertShown = false;
+
+      // 스크롤 이벤트는 하나로 합쳐서 관리하는 것이 효율적입니다.
+      window.addEventListener("scroll", () => {
+        // --- 1. Navbar 폰트 크기 조절 ---
+        // 자바스크립트에서 CSS 속성 'font-size'는 'fontSize' (camelCase)로 작성해야 합니다.
+        if (window.scrollY > 100) {
+          document.querySelector(".navbar-brand").style.fontSize = "20px";
+        } else {
+          // 100px 미만으로 올라가면 원래 크기로 복원 (style.css에 정의된 값)
+          document.querySelector(".navbar-brand").style.fontSize = "";
+        }
+
+        // --- 2. 페이지 끝 도달 감지 ---
+        // 구조 분해 할당으로 스크롤 관련 값들을 한번에 가져옵니다.
+        // const scrollTop = document.documentElement.scrollTop; //내위치
+        // const scrollHeight = document.documentElement.scrollHeight; //실제높이 (fixed)
+        // const clientHeight = document.documentElement.clientHeight; //보이는높이 (fixed)
+        const { scrollTop, scrollHeight, clientHeight } =
+          document.documentElement;
+
+        // 스크롤할 때마다 세 가지 값을 콘솔에 출력
+        console.log({ scrollTop, scrollHeight, clientHeight });
+
+        // 스크롤이 페이지 맨 끝에 거의 도달했고, 아직 알림창이 표시되지 않았다면
+        if (scrollTop + clientHeight >= scrollHeight - 5 && !alertShown) {
+          alert("페이지 맨 아래 도착!");
+          alertShown = true; // 알림을 표시했으므로 true로 변경해 중복 방지
+        }
+      });
+    </script>
+  </body>
+</html>
