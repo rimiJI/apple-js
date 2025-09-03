@@ -1,10 +1,9 @@
-
 .alter-box {
   background-color: skyblue;
   padding: 20px;
   color: white;
   border-radius: 5px;
-  display : none ;
+  display: none;
   /* 
     UI를 평소에 숨기고 싶으면 display : none
     다시 보여주고 싶으면 display : block 
@@ -18,22 +17,20 @@
     이 규칙을 덮어쓰려면 !important를 사용합니다.
     
 */
-.list-group{
-  display: none ;
+.list-group {
+  display: none;
 }
 
-.show{
+.show {
   display: block !important;
 }
 
-
-
 .black-bg {
-  width : 100%;
-  height : 100%;
-  position : fixed;
-  background : rgba(0,0,0,0.5);
-  z-index : 5;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
   padding: 30px;
   /* display: none; */
 }
@@ -41,7 +38,7 @@
   background: white;
   border-radius: 5px;
   padding: 30px;
-} 
-.show-modal{
+}
+.show-modal {
   display: block;
 }
