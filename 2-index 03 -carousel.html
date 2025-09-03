@@ -32,11 +32,23 @@
     <button class="slide-3">3</button>
 
     <script>
+      // '.slide-1' 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-1").addEventListener("click", () => {
+        document.querySelector(".slide-container").style.transform =
+          "translateX(0)";
+      });
+
       // '.slide-2' 클래스를 가진 버튼을 클릭하면
       document.querySelector(".slide-2").addEventListener("click", () => {
         //slide-container의 스타일을 중 transform를 translateX(-100vw)로 바꿔주세요.
         document.querySelector(".slide-container").style.transform =
           "translateX(-100vw)";
+      });
+
+      //".slide-3" 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-3").addEventListener("click", () => {
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-200vw)";
       });
 
       // 오류
