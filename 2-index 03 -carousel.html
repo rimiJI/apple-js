@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>캐러셀 Carousel</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- bootstrap ---중에 CSS는 고정(정적)이므로 link에 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- 여기에 캐러셀 코드을 적으세요 -->
+    <!-- *순서* 
+    1. div 슬라이드-컨테이너 
+    2. div 슬라이드-박스 3개 
+    3. img 각각 src속성에 이미지를 걸어주기 
+    4. div 스타일시트CSS에 overflow를 hidden으로  -->
+    <div style="overflow: hidden">
+      <div class="slide-container">
+        <div class="slide-box"><img src="/src/car1.png" /></div>
+        <div class="slide-box"><img src="/src/car2.png" /></div>
+        <div class="slide-box"><img src="/src/car3.png" /></div>
+      </div>
+    </div>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+
+    <script>
+      // '.slide-2' 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-2").addEventListener("click", () => {
+        //slide-container의 스타일을 중 transform를 translateX(-100vw)로 바꿔주세요.
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-100vw)";
+      });
+
+      // 오류
+      // 클래스 선택자 오류: querySelector를 사용할 때 클래스(class)를 찾으려면 이름 앞에 점(.)을 꼭 찍어줘야 합니다.
+      //                  slide-2와 slide-container는 클래스 이름이므로 .slide-2와 .slide-container로 작성해야 합니다.
+      // CSS 속성값 오류: style.transform에 값을 할당할 때는 문자열(string) 형태로 넣어줘야 합니다.
+      //                  translateX(-100vw)를 따옴표(' ' 또는 " ")로 감싸주어야 합니다.
+    </script>
+  </body>
+</html>
