@@ -14,7 +14,7 @@
     />
   </head>
   <body>
-    <div class="black-bg">
+    <div class="black-bg show-modal">
       <div class="white-bg">
         <h4>로그인하세요</h4>
         <!--form이다. from이아닌-->
@@ -64,7 +64,18 @@
 
       // '닫기' 버튼 누르면 모달창 닫기
       document.getElementById("close").addEventListener("click", () => {
-        document.querySelector(".black-bg").style.display = "none";
+        document.querySelector(".black-bg").classList.remove("show-modal");
+        // document.querySelector(".black-bg").style.display = "none"; //이건 CSS 수정하는 것
+      });
+
+      //모든 브라우저는 이벤트 버블링이 일어남
+      // (이벤트가 상위 html로 퍼지는 현상)
+      //그래서 이벤트 리스너안에 이벤트함수를 넣어서 제약사항을 걸어둬야함
+      //예를들어서 검은색 부분만 클릭하면 닫히게 하고싶은데
+      //그 아래 흰색부분까지 하위에 있어서 그거 눌러도 닫히게 되는 거 임
+      document.querySelector(".black-bg").addEventListener("click", (e) => {
+        // console.log(e.target); //실제 클릭위치 알려줌 => e.target
+        // console.log(e.currentTarget); //지금 이벤트리스너가 달린 곳 알려줌
       });
     </script>
   </body>
