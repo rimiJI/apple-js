@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인모달 - with regular expression</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- bootstrap ---중에 CSS는 고정(정적)이므로 link에 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="black-bg">
+      <div class="white-bg">
+        <h4>로그인하세요</h4>
+        <!--form이다. from이아닌-->
+        <form action="success.html">
+          <div class="my-3">
+            <input type="text" class="form-control" id="email" />
+          </div>
+          <div class="my-3">
+            <input type="password" class="form-control" id="pw" />
+          </div>
+          <button type="submit" class="btn btn-primary" id="send">전송</button>
+          <button type="button" class="btn btn-secondary" id="close">
+            닫기
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- 설명 -->
+    <div class="summary">레귤러익스프레션으로 검토기능 만들어보자</div>
+
+    <script>
+      const emailInput = document.getElementById("email");
+      const pwInput = document.getElementById("pw");
+      const formSubmit = document.querySelector("form");
+
+      //아이디이메일 input감지 시 console에 출력
+      emailInput.addEventListener("input", () => {
+        console.log("아이디 입력함!");
+      });
+      //폼에 전송제출 눌러도 기본동작인 폼 전송 막기
+      formSubmit.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        //아이디 입력값이 비어있을 시 모달창뜸
+        if (emailInput.value.trim() == "") {
+          alert("아이디를 입력하세요!");
+        }
+        //비번 입력값이 비어있을 시,짧을 시 모달창뜸
+        if (pwInput.value.trim() == "") {
+          alert("비밀번호를 입력하랏");
+        } else if (pwInput.value.trim().length < 6) {
+          alert("비번 넘 짧다");
+        } else if (/[A-Z]/.test(pwInput.value) == false) {
+          alert("대문자를 1자라도 입력하세요");
+        }
+      });
+
+      // '닫기' 버튼 누르면 모달창 닫기
+      document.getElementById("close").addEventListener("click", () => {
+        document.querySelector(".black-bg").style.display = "none";
+      });
+    </script>
+  </body>
+</html>
