@@ -1,0 +1,25 @@
+<!-- 수업 외 그냥 복습 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>함수실행스택</title>
+  </head>
+  <body>
+    <script>
+      function A() {
+        B();
+        console.log("A 함수가 실행됨!");
+      }
+      function B() {
+        C();
+        console.log("B 함수가 실행됨!");
+      }
+      function C() {
+        console.log("C 함수가 실행됨!");
+      }
+      A();
+    </script>
+  </body>
+</html>
