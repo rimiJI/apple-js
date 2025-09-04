@@ -74,5 +74,37 @@
         <p>배송정보입니다. Shipping</p>
       </div>
     </div>
+    <!-- 
+    버튼변수 
+    설명박스변수 
+    버튼0 누르면 -→ 버튼 0,1,2에 orange 떼고, 0에 부착
+     ------------→ 박스 0,1,2에 show 떼고 0에 부착 
+     -->
+    <!-- 다 제작하고 나중에 .js 파일에 빼기 -->
+    <!-- <script src="2-index 07 -tab-detatil.js"></script> -->
+    <script>
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      // 탭을 열어주는 함수 (index는 0, 1, 2 같은 숫자)
+      function openTab(index) {
+        // 1. 모든 버튼과 컨텐츠에서 활성화 클래스를 먼저 제거합니다.
+        for (let i = 0; i < tabButtons.length; i++) {
+          tabButtons[i].classList.remove("orange");
+          tabContents[i].classList.remove("show");
+        }
+
+        // 2. 클릭된 탭(index)에 해당하는 버튼과 컨텐츠에만 활성화 클래스를 추가합니다.
+        tabButtons[index].classList.add("orange");
+        tabContents[index].classList.add("show");
+      }
+
+      // 3. for 반복문으로 모든 버튼에 클릭 이벤트를 달아줍니다.
+      // forEach를 사용하면 각 버튼과 그 버튼의 인덱스를 더 쉽게 다룰 수 있습니다.
+      tabButtons.forEach((button, index) => {
+        button.addEventListener("click", () => openTab(index)); //  “클릭 순간”에만 openTab(index)가 실행
+        console.log(button, index);
+      });
+    </script>
   </body>
 </html>
