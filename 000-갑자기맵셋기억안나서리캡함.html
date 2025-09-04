@@ -1,0 +1,39 @@
+<!-- 수업 외 그냥 복습 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>맵셋</title>
+  </head>
+  <body>
+    <script>
+      const m = new Map();
+      console.log(m.set("a", "b"));
+      console.log(m.set(1, "c"));
+      console.log(m.get(1)); //c
+      console.log(m.size); //2
+      console.log(m.delete(1));
+      console.log(m.size); //1
+      console.log(m.has("a")); //true: 'b'
+      console.log(m.has(1)); //false , NaN
+      console.log(m);
+
+      m.forEach((v, k) => {
+        console.log(k, v);
+      }); //['a','b',1,  ]  맨 뒷 value가 비어있음
+      //forEach()문의 기본순서는 (값,키)인데 Map과 객체{:}는 키:값으로 오기 때문에 for...of문,forEach문으로 써주고 싶다면
+      //forEach()문의 괄호 안 매개변수 규칙에 따라 출력시 바꾼값을해샤 키-값순으로 출력됨
+
+      const s = new Set();
+      console.log(s.add(1)); //{1}
+      console.log(s.add("1")); //{1,"1"}
+      console.log(s.add(1)); //{1,"1"} -중복허용 불가로 무시됨
+      console.log(s.add(false)); //{1,"1",false}
+      console.log(s.size); //3
+      console.log(s.has("1")); //true
+      console.log(s.delete(false));
+      console.log(s.size); //2
+    </script>
+  </body>
+</html>

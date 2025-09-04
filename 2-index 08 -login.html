@@ -74,9 +74,26 @@
       //예를들어서 검은색 부분만 클릭하면 닫히게 하고싶은데
       //그 아래 흰색부분까지 하위에 있어서 그거 눌러도 닫히게 되는 거 임
       document.querySelector(".black-bg").addEventListener("click", (e) => {
-        // console.log(e.target); //실제 클릭위치 알려줌 => e.target
-        // console.log(e.currentTarget); //지금 이벤트리스너가 달린 곳 알려줌
+        // if(지금클릭한것==검은배경){클래스에 show-modal빼라}
+        if (e.target == document.querySelector(".black-bg")) {
+          document.querySelector(".black-bg").classList.remove("show-modal");
+        }
+        console.log(e.target); //실제 클릭위치 알려줌 => e.target
+        // console.log(e.currentTarget); //지금 이벤트리스너가 달린 곳 알려줌=>e.currentTarget (this는 화살표 함수 사용할 때 안쓰는 것이 좋음. 옛날함수 function(){}에서는 써도 무관하지만)
+        // console.log(e.preventDefault()); //이벤트 기본동작을 막아줌=>e.preventDefault()
+        // console.log(e.stopPropagation()); // 이벤트 버블링을 중단=>e.stopPropagation()
       });
+
+      //  화살표 함수 () => {}를 이벤트 리스너로 사용할 때는
+      // this 대신 e.currentTarget을 쓰는 것이 훨씬 안전하고 명확합니다.
+
+      // 화살표 함수 () => {} 안에서: this는 이벤트가 발생한 요소를 가리키지 않고,
+      // 바깥 스코프(문맥)의 this를 그대로 물려받습니다. 대부분의 경우 이는 전역 객체인 window가 되므로,
+      // 우리가 원하는 대로 동작하지 않아 버그의 원인이 되기 쉽습니다.
+
+      // e.currentTarget: 어떤 종류의 함수를 쓰든 상관없이,
+      // 항상 이벤트 리스너가 부착된 요소를 정확히 가리킵니다.
+      // 예측 가능하고 일관성이 있죠.
     </script>
   </body>
 </html>
