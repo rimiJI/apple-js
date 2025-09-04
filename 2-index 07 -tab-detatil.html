@@ -85,26 +85,40 @@
     <script>
       const tabButtons = document.querySelectorAll(".tab-button");
       const tabContents = document.querySelectorAll(".tab-content");
+      let tabCount = tabButtons.length;
 
-      // 탭을 열어주는 함수 (index는 0, 1, 2 같은 숫자)
-      function openTab(index) {
-        // 1. 모든 버튼과 컨텐츠에서 활성화 클래스를 먼저 제거합니다.
-        for (let i = 0; i < tabButtons.length; i++) {
-          tabButtons[i].classList.remove("orange");
-          tabContents[i].classList.remove("show");
-        }
+      // 1. 페이지 로드 시 for문 실행
+      for (let i = 0; i < tabCount; i++) {
+        console.log("이벤트 등록 단계: i =", i);
 
-        // 2. 클릭된 탭(index)에 해당하는 버튼과 컨텐츠에만 활성화 클래스를 추가합니다.
-        tabButtons[index].classList.add("orange");
-        tabContents[index].classList.add("show");
+        tabButtons[i].addEventListener("click", () => {
+          console.log("👉 클릭됨! i =", i);
+
+          // 2. 클릭 순간마다 내부 for문 돌기
+          for (let j = 0; j < tabCount; j++) {
+            console.log("   j =", j, "→ 클래스 제거");
+            tabButtons[j].classList.remove("orange");
+            tabContents[j].classList.remove("show");
+          }
+
+          console.log("   i =", i, "→ 클래스 추가");
+          tabButtons[i].classList.add("orange");
+          tabContents[i].classList.add("show");
+        });
       }
 
-      // 3. for 반복문으로 모든 버튼에 클릭 이벤트를 달아줍니다.
-      // forEach를 사용하면 각 버튼과 그 버튼의 인덱스를 더 쉽게 다룰 수 있습니다.
-      tabButtons.forEach((button, index) => {
-        button.addEventListener("click", () => openTab(index)); //  “클릭 순간”에만 openTab(index)가 실행
-        console.log(button, index);
-      });
+      /*
+      좋은 코드의 기준 (from codingApple)
+      1.원할하게 원하는 기능 구현
+      2.좋은 확장성
+      3.쉬운 관리
+      4.성능에 이상 없음  
+
+      결론:
+      for 문법의 용도를 잘 기억해둡시다.  
+      비슷한 코드들을 직접 복붙하는게 귀찮으면 for 반복문을 쓰는 것일 뿐이지 
+      for 부터 써놓고 무슨 코드를 채울지 고민하는 짓을 하면 안됩니다. 그건 고수되면 하십쇼 
+      */
     </script>
   </body>
 </html>
