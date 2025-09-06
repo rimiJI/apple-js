@@ -1,0 +1,117 @@
+<!-- 탭기능을 만들면서 for 반복문 배우기 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>탭기능을 만들면서-이벤트버블을이용한 상위객체 , dataset</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      ul.list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .tab-button {
+        display: block;
+        padding: 10px 20px 10px 20px;
+        float: left;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        color: grey;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .orange {
+        border-top: 2px solid orange;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid white;
+        border-left: 1px solid #ccc;
+        color: black;
+        margin-top: -2px;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <ul class="list">
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button orange" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
+      </ul>
+      <div class="tab-content">
+        <p>상품설명입니다. Product</p>
+      </div>
+      <div class="tab-content show">
+        <p>스펙설명입니다. Information</p>
+      </div>
+      <div class="tab-content">
+        <p>배송정보입니다. Shipping</p>
+      </div>
+    </div>
+
+    <script>
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      document.querySelector(".list").addEventListener("click", (e) => {
+        console.log(e.target.dataset.id);
+        tabOpen(e.target.dataset.id);
+      });
+
+      function tabOpen(e) {
+        for (let i = 0; i < tabButtons.length; i++) {
+          tabButtons[i].classList.remove("orange");
+          tabContents[i].classList.remove("show");
+        }
+        tabButtons[e].classList.add("orange");
+        tabContents[e].classList.add("show");
+        // 모든 버튼에 tabButtons에 orange 지워
+        // 모든 내용에 tabContents에 open지워
+
+        // 버튼[e]만 orange 붙이기
+        // 내용[e]만 open붙이기
+      }
+
+      // 오늘의 교훈 :
+      // 1. 이벤트버블을 활용하여 상위 클래스를 클릭하면 이벤트리스너를 줄일 수 있다.
+      // 2. 함수로 축약할 때 변수같은게 있으면 파라미터로 바꾸는게 좋음
+      // 3. dataset 알면 _ 이벤트리스너 적게 사용할 때 내가 뭐 눌렀는지 쉽게 파악할 수도 있음 (data-id)
+
+      // ------------------지난번 구현한 내용--------------------------
+
+      // for (let i = 0; i < tabButtons.length; i++) {
+      //   tabButtons[i].addEventListener("click", () => {
+      //     // 1. 모든 버튼과 콘텐츠에서 활성화 클래스(.orange, .show)를 제거
+      //     for (let j = 0; j < tabButtons.length; j++) {
+      //       tabButtons[j].classList.remove("orange");
+      //       tabContents[j].classList.remove("show");
+      //     }
+
+      //     // 2. 내가 클릭한 버튼과 그에 맞는 콘텐츠에만 활성화 클래스 추가
+      //     tabButtons[i].classList.add("orange");
+      //     tabContents[i].classList.add("show");
+      //   });
+      // }
+    </script>
+  </body>
+</html>
