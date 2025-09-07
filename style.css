@@ -72,3 +72,9 @@
   font-size: 100px;
   transition: all 1s;
 }
+
+
+/* select드롭다운 */
+.form-hide{
+  display: none;
+}
