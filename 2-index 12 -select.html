@@ -60,6 +60,7 @@
       <select class="form-select mt-2">
         <option>모자</option>
         <option>셔츠</option>
+        <option>바지</option>
       </select>
       <select class="form-select mt-2 form-hide">
         <option>95</option>
@@ -68,6 +69,8 @@
     </form>
 
     <script>
+      let pants = [28, 30, 32];
+
       // 첫 번째 select 요소에 이벤트 리스너를 추가합니다.
       document
         .querySelectorAll(".form-select")[0]
@@ -78,8 +81,22 @@
             document
               .querySelectorAll(".form-select")[1]
               .classList.remove("form-hide");
+          } else if (e.target.value == "바지") {
+            document.querySelectorAll(".form-select")[1].innerHTML = "뇽??";
+            //pants를 forEach로 반복하여 생성
+            pants.forEach((size) => {
+              document.querySelectorAll(
+                ".form-select"
+              )[1].innerHTML += `<option>${size}</option>`;
+            });
           }
         });
+      //for..in문 연습
+      let obj = { name: "kim", age: 20 };
+      for (let key in obj) {
+        console.log(key + "→ 키");
+        console.log(obj[key] + " → 객체[키]");
+      }
     </script>
   </body>
 </html>
