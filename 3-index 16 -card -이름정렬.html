@@ -1,3 +1,4 @@
+<!-- array에자주쓰는sort_map_filter함수 -->
 <!-- 고차원함수 sort map filter -->
 <!-- sort기능을 사용해서 카드를 정렬하자. -->
 <!DOCTYPE html>
@@ -83,34 +84,42 @@
       <button class="btn btn-danger mt-4" id="more">더보기</button>
     </div>
     <div class="container">
-      <button class="btn btn-danger mt-4" id="price">정렬</button>
+      <button class="btn btn-danger mt-4" id="price">가격정렬</button>
+    </div>
+    <div class="container">
+      <button class="btn btn-danger mt-4" id="price">이름정렬</button>
     </div>
 
     <script>
-      /*
-      //array 오름차순 정렬
-      //원리: 양수-a오른쪽, 음수-a왼쪽
-      let 얼레 = [7, 3, 5, 2, 40];
-      얼레.sort((a, b) => {
-        return a - b;
+      //가격순정렬 몸풀기
+      //ㄱ 보다 ㅎ이 큼
+      let 얼레 = "나가려다".split("");
+      // 얼레.sort((a, b) => {
+      //   return a - b;
+      // }); //안되는 이유 : "나" - "가" → NaN (숫자가 아님).
+      let 내림차순얼레 = 얼레.sort((a, b) => {
+        if (a < b) {
+          return 1;
+        } else {
+          return -1;
+        }
       });
-      console.log("얼레 ", 얼레);
-      //array 내름차순 정렬
-      //원리: 음수-b오른쪽, 양수-b왼쪽
-
-      //가격순으로 정렬 원리
-      let testPrice = [{ price: 500 }, { price: 20 }, { price: 900 }];
-      testPrice.sort((a, b) => {
-        return a.price - b.price;
+      console.log("내림차순얼레", 내림차순얼레);
+      //또는
+      let 오름차순얼레 = 얼레.sort((a, b) => {
+        if (a > b) {
+          return 1;
+        } else {
+          return -1;
+        }
       });
+      console.log("오름차순얼레", 오름차순얼레);
+      //또는
+      let 오름차순얼레2 = 얼레.sort();
+      console.log("오름차순얼레2", 오름차순얼레2);
+    </script>
 
-      //map
-      let 새얼레 = 얼레.map((v) => {
-        return v * 4;
-      });
-      console.log("새얼레", 새얼레);
-      */
-
+    <script>
       //------- ♦️♦️버튼을 누르면 가격순으로 정렬
       //서버에서 JSON을 받아오면 → products 배열에 저장
       // 정렬 버튼 누르면 → products.sort()로 데이터 순서를 바꿈
@@ -139,6 +148,8 @@
           container.insertAdjacentHTML("beforeend", 템플릿);
         });
       });
+
+      //------- ♦️♦️버튼을 누르면 이름순으로 정렬
     </script>
 
     <script>
