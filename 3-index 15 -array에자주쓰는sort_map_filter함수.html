@@ -1,4 +1,5 @@
 <!-- 고차원함수 sort map filter -->
+<!-- sort기능을 사용해서 카드를 정렬하자. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -87,21 +88,27 @@
 
     <script>
       /*
-        //array 오름차순 정렬
-        //원리: 양수-a오른쪽, 음수-a왼쪽
-        let 얼레 = [7, 3, 5, 2, 40];
-        얼레.sort((a, b) => {
-          return a - b;
-        });
-        console.log(얼레);
-        //array 내름차순 정렬
-        //원리: 음수-b오른쪽, 양수-b왼쪽
-  
-        //------- 가격순으로 정렬
-        let testPrice = [{ price: 500 }, { price: 20 }, { price: 900 }];
-        testPrice.sort((a, b) => {
-          return a.price - b.price;
-        });
+      //array 오름차순 정렬
+      //원리: 양수-a오른쪽, 음수-a왼쪽
+      let 얼레 = [7, 3, 5, 2, 40];
+      얼레.sort((a, b) => {
+        return a - b;
+      });
+      console.log("얼레 ", 얼레);
+      //array 내름차순 정렬
+      //원리: 음수-b오른쪽, 양수-b왼쪽
+
+      //가격순으로 정렬 원리
+      let testPrice = [{ price: 500 }, { price: 20 }, { price: 900 }];
+      testPrice.sort((a, b) => {
+        return a.price - b.price;
+      });
+
+      //map
+      let 새얼레 = 얼레.map((v) => {
+        return v * 4;
+      });
+      console.log("새얼레", 새얼레);
       */
 
       //------- ♦️♦️버튼을 누르면 가격순으로 정렬
