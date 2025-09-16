@@ -5,9 +5,9 @@
   </head>
   <body>
     <div id="notes">
-      자바스크립트 객체복사: 얕은복사VS깊은복사 정리 얕은복사 - 의도하지않게
-      원본까지 바뀌어버림 ( 객체 안 또다른 객체나 배열에 내부까지 복사되지 않고
-      이어진 참조를 바뀌어버림 ) <br />
+      [250916] <br />자바스크립트 객체복사: 얕은복사VS깊은복사 정리 얕은복사 -
+      의도하지않게 원본까지 바뀌어버림 ( 객체 안 또다른 객체나 배열에 내부까지
+      복사되지 않고 이어진 참조를 바뀌어버림 ) <br />
       원본 객체의 껍데기만 만들고, 속 안에 재료는 원본과 공유하고 있는 것 (상태
       관리에 치명적일 수 있음 ) -얕은복사 방법: 1. { ...spread } 2.Object.assign
       깊은복사- 단순1차원 속성만 복사하는 것이 아닌, <br />객체 내부에 또다른
@@ -41,11 +41,15 @@
       shallowCopy.name = "홍길동";
       shallowCopy.address.city = "부산"; //user의 city까지 바뀜
 
+      //얕은복사 shallow 2. Object.assign()
+      const shallowCopy2 = Object.assign({}, user);
+      shallowCopy2.address.city = "뉴욕"; //user의 city까지 바뀜
+
       console.log(user);
       console.log(shallowCopy);
+      console.log(shallowCopy2);
 
-      //얕은복사 shallow 2. Object.assign()
-      const shallowCopy2 =
+      //깊은복사 Deep 1.
     </script>
   </body>
 </html>
