@@ -11,8 +11,12 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <style>
-      ul.list {
+    <style
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    >
+      </script > <style > ul.list {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -74,6 +78,9 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <button class="btn btn-danger" id="more">더보기</button>
+    </div>
 
     <!-- <div class="card-group container">
       <div class="card">
@@ -120,7 +127,7 @@
       });
       */
 
-      //---지굼나는 클라이언트사이드렌더링하는중
+      //------ ♦️서버에서 데이터가져오기------지굼나는 클라이언트사이드렌더링하는중
       const url = "https://codingapple1.github.io/js/more1.json";
       fetch(url)
         .then((r) => r.json())
@@ -134,7 +141,29 @@
         ) //실무에선 d말고 data라고 써주기
         .catch((e) => console.log("실패..:", e));
 
-      //------서버에서 텍스트 받아서 콘솔에 표기--------
+      //-------♦️더보기 버튼을 누르면 세개 추가하기
+      document.getElementById("more").addEventListener("click", () => {
+        fetch("https://codingapple1.github.io/js/more1.json")
+          .then((r) => r.json())
+          .then((d) => {
+            d.forEach((a, i) => {
+              let 템플릿 = `
+          <div class="col-sm-4">
+            <img src="https://placehold.co/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>
+        `;
+              // ← jQuery의 $(".row").append(템플릿) 대신
+              document
+                .querySelector(".row")
+                .insertAdjacentHTML("beforeend", 템플릿);
+            });
+          })
+          .catch((e) => console.log("실패..:", e));
+      });
+
+      //------ ♦️서버에서 텍스트 받아서 콘솔에 표기--------
       fetch("https://codingapple1.github.io/hello.txt")
         .then((r) => r.text())
         .then((data) => {
