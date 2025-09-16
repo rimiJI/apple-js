@@ -34,22 +34,49 @@
     </script>
 
     <script>
-      //얕은복사 shallow 1. ...spread
+      //♦️얕은복사 shallow 1. ...spread
       const user = { name: "김효민", address: { city: "서울" } };
       const shallowCopy = { ...user };
 
       shallowCopy.name = "홍길동";
       shallowCopy.address.city = "부산"; //user의 city까지 바뀜
 
-      //얕은복사 shallow 2. Object.assign()
+      //♦️얕은복사 shallow 2. Object.assign()
       const shallowCopy2 = Object.assign({}, user);
       shallowCopy2.address.city = "뉴욕"; //user의 city까지 바뀜
 
-      console.log(user);
-      console.log(shallowCopy);
-      console.log(shallowCopy2);
+      // console.log(user);
+      // console.log(shallowCopy);
+      // console.log(shallowCopy2);
 
-      //깊은복사 Deep 1.
+      //♦️깊은복사 Deep 1.JSON.stringify()직렬화 → JSON.parsh()객체화
+      //단순하지 않은 상황에선 오류 생길 수 있음
+      const deepCopy = JSON.parse(JSON.stringify(user));
+
+      deepCopy.address.city = "도쿄";
+
+      console.log(user);
+      console.log(deepCopy);
+
+      //♦️깊은복사 Deep 2.structuredClone() → IE처럼 구 브라우저에선 작동안함
+      const deepCopy2 = structuredClone(user);
+
+      deepCopy2.address.city = "수원";
+      console.log(deepCopy2);
+
+      //♦️깊은복사 Deep 3.재귀함수 (Map,Set,Date 등 타입에선 별도의 처리가 필요)
+      function deepClone(obj) {
+        if (obj === null || typeof obj !== "object") return obj; // 원시값 그대로
+        if (Array.isArray(obj)) return obj.map(deepclone); // 배열이면 요소별 재귀 복사
+
+        const cloned = {}; // 일반 객체라면
+        Object.keys(obj).forEach((keys) => {
+          //속성별 재귀적 복사 (어떤 값이 어떤 키에 속해있는지 알아야 새 객체에 붙일 수 있음)
+          cloned[key] = deepClone(obj[key]);
+        });
+        return cloned;
+      }
+      //Object.keys(obj) ➡️ obj의 “자기 자신이 가진” 열쇠들(속성 이름)만 배열로 뽑아준다.
     </script>
   </body>
 </html>
