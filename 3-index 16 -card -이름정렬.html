@@ -80,18 +80,18 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <button class="btn btn-danger mt-4" id="more">더보기</button>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="more">더보기</button>
     </div>
-    <div class="container">
-      <button class="btn btn-danger mt-4" id="price">가격정렬</button>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="price">가격정렬</button>
     </div>
-    <div class="container">
-      <button class="btn btn-danger mt-4" id="price">이름정렬</button>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="sort1">이름정렬</button>
     </div>
 
     <script>
-      //가격순정렬 몸풀기
+      /* 가격순정렬 몸풀기
       //ㄱ 보다 ㅎ이 큼
       let 얼레 = "나가려다".split("");
       // 얼레.sort((a, b) => {
@@ -116,7 +116,7 @@
       console.log("오름차순얼레", 오름차순얼레);
       //또는
       let 오름차순얼레2 = 얼레.sort();
-      console.log("오름차순얼레2", 오름차순얼레2);
+      console.log("오름차순얼레2", 오름차순얼레2); */
     </script>
 
     <script>
@@ -135,7 +135,6 @@
         const container = document.querySelector(".row");
         // 3) 기존 내용 비우기
         container.innerHTML = "";
-
         // 4) 새 카드 생성 후 추가
         products.forEach((item) => {
           const 템플릿 = `
@@ -150,6 +149,24 @@
       });
 
       //------- ♦️♦️버튼을 누르면 이름순으로 정렬
+      document.getElementById("sort1").addEventListener("click", () => {
+        // products.sort(); //그냥 이렇게 쓰면 안됨 sort는 배열 정렬함수라, 이렇게 객체형태는 작동이 안됨 {:,:}
+        products.sort((a, b) => a.title.localeCompare(b.title)); //오름차순 ( 내림차순 하고프면 a,b교체 )
+        //요소비우기
+        document.querySelector(".row").innerHTML = "";
+        //요소채우기
+        products.forEach((item) => {
+          const 템플릿 = `<div class="col-sm-4">
+              <img src="https://placehold.co/600" class="w-100" />
+              <h5>${item.title}</h5>
+              <p>가격 : ${item.price}</p>
+            </div>`;
+          document
+            .querySelector(".row")
+            .insertAdjacentHTML("beforeend", 템플릿);
+        });
+        console.log(products);
+      });
     </script>
 
     <script>
