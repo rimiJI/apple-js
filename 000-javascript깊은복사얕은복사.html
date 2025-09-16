@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="notes">
+      자바스크립트 객체복사: 얕은복사VS깊은복사 정리 얕은복사 - 의도하지않게
+      원본까지 바뀌어버림 ( 객체 안 또다른 객체나 배열에 내부까지 복사되지 않고
+      이어진 참조를 바뀌어버림 ) <br />
+      원본 객체의 껍데기만 만들고, 속 안에 재료는 원본과 공유하고 있는 것 (상태
+      관리에 치명적일 수 있음 ) -얕은복사 방법: 1. { ...spread } 2.Object.assign
+      깊은복사- 단순1차원 속성만 복사하는 것이 아닌, <br />객체 내부에 또다른
+      객체나배열이 있을 경우에도 <b>재귀적recursive</b>로 복사 -깊은복사 방법:
+      1. JSON.stringify() 직렬화 → JSON.parse() 다시 객체화 -( 단점, 빠르고
+      간편하나 undefined,Symbol,function,Date,Map,Set은 직렬화 대상이 아니므로
+      손실됨 ) <br />실무, 단순한 데이터구조(eg.백엔드API응답객체)에 한하여
+      안전하게 사용할수는 있으나 모든 상황에서 사용 무리. <br />2.
+      structuredClone( ) - 깊은 복사까지(심지어 내장객체까지) 안정적으로
+      복제해준다. 단, IE&오래된 브라우저 + Node.js 17버전 이전에는 지원 안됨.
+      <br />3. 직접 구현 재귀 함수 - 가장 강력한 방법 (2번방법이 오래된
+      브라우저에서 지원 안되니깐) -실무에서는 어떻게 선택? 코드 성격과 상황에
+      따라 유연하게 선택. -상태 관리에서 치명적일 수 있다 <br />예시1: React에서
+      이전과 새로운상태 비교해 변경 여부 판단 시, 참조가 같으면 변경되지 않은
+      것으로 간주되어 올바른 렌더링이 되지 않을 수 있음. <br />예시2: 서버에서
+      받은 원본데이터 보호하면서 조작, 이전상태로 되돌리는 undo 기능 구현시 깊은
+      복사 필수. → 데이터의 정합성(목표와 값들이 모순없이 일치)과 예측가능성
+      확보
+    </div>
+    <script>
+      document.getElementById("notes").innerHTML = document
+        .getElementById("notes")
+        .innerHTML.replaceAll("-", "<br>◌");
+    </script>
+
+    <script>
+      //얕은복사 shallow 1. ...spread
+      const user = { name: "김효민", address: { city: "서울" } };
+      const shallowCopy = { ...user };
+
+      shallowCopy.name = "홍길동";
+      shallowCopy.address.city = "부산"; //user의 city까지 바뀜
+
+      console.log(user);
+      console.log(shallowCopy);
+
+      //얕은복사 shallow 2. Object.assign()
+      const shallowCopy2 =
+    </script>
+  </body>
+</html>
