@@ -103,9 +103,53 @@
     </div> -->
 
     <script>
+      /*
+      //-------지난시간에 한 덮어씌우기------
+      let products = [
+        { id: 0, price: 70000, title: "Blossom Dress" },
+        { id: 1, price: 50000, title: "Springfield Shirt" },
+        { id: 2, price: 60000, title: "Black Monastery" },
+      ];
+
+      products.forEach((product, index) => {
+        document.querySelectorAll(".col-sm-4 h5")[index].innerHTML =
+          product.title;
+        document.querySelectorAll(".col-sm-4 p")[
+          index
+        ].innerHTML = `가격 : ${product.price}`;
+      });
+      */
+
+      //---지굼나는 클라이언트사이드렌더링하는중
+      const url = "https://codingapple1.github.io/js/more1.json";
+      fetch(url)
+        .then((r) => r.json())
+        .then((d) =>
+          d.forEach((v, i) => {
+            document.querySelectorAll(".col-sm-4 h5")[i].innerHTML = v.title;
+            document.querySelectorAll(".col-sm-4 p")[
+              i
+            ].innerHTML = `가격 : ${v.price}`;
+          })
+        ) //실무에선 d말고 data라고 써주기
+        .catch((e) => console.log("실패..:", e));
+
+      //------서버에서 텍스트 받아서 콘솔에 표기--------
+      fetch("https://codingapple1.github.io/hello.txt")
+        .then((r) => r.text())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log("실패함: ", e);
+        });
+
       //서버
       //1. server-side rendering: 서버가 귀찮음. 서버에서 html을 미리 완성해서 고객에게 보내줌
       //2. client-side rendering: 서버가 편함. 서버가 비어있는 html과 데이터만 보내줌 그리고 자바스크립트를 이용해서 고객 브라우저안에서 html을 완성합니다.
+
+      //⭐res.text() → 응답을 "문자열"로 꺼냄
+      //⭐res.json() → 응답을 "JSON 파싱된 객체"로 꺼냄
     </script>
   </body>
 </html>
