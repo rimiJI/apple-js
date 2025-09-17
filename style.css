@@ -47,7 +47,7 @@
 /* 참고 : 브라우저폭==100vw */
 .slide-container {
   width: 300vw;
-  transition: all 1s;
+  /* transition: all 1s; 스와이프 기능으로 인해 잠시 꺼둠*/
   /* transform: translateX(-100vw); 이게 2을 눌렀을때 최종화면 */
   /* margin-left: -100vw; 이건 두번째사진끝 */
   /* margin-left: -200vw; 이건 세번째사진끝 */
