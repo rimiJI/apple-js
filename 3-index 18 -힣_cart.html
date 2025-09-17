@@ -1,0 +1,51 @@
+<!-- 장바구니페이지 -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니</title>
+    <!-- 페이지 디자인을 위해 Bootstrap CSS를 추가합니다. -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container my-5">
+      <h2>장바구니</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <!--#는 주로 number sign을 뜻함 ~ 옛날 타자기 시절 ~-->
+            <th scope="col">#</th>
+            <th scope="col">상품명</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <!-- 자바스크립트로 장바구니 상품이 여기에 추가됩니다. -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      const cartTableBody = document.getElementById("cart-body");
+      // 1. 로컬 스토리지에서 'cart' 라는 이름으로 저장된 데이터를 꺼냅니다.
+      const cartData = localStorage.getItem("cart");
+
+      // 2. 데이터가 존재하는지 확인합니다.
+      if (cartData) {
+        // 3. 꺼내온 데이터는 '글자' 형태이므로, 자바스크립트 배열로 변환합니다.
+        const cartItems = JSON.parse(cartData);
+
+        // 4. 배열의 각 상품(itemTitle)마다 반복해서 테이블 행(row)을 만들어줍니다.
+        cartItems.forEach((itemTitle, index) => {
+          const rowHtml = `<tr><th scope="row">${
+            index + 1
+          }</th><td>${itemTitle}</td></tr>`;
+          cartTableBody.insertAdjacentHTML("beforeend", rowHtml);
+        });
+      }
+    </script>
+  </body>
+</html>
