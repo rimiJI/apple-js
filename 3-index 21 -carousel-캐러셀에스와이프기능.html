@@ -23,7 +23,9 @@
     4. div 스타일시트CSS에 overflow를 hidden으로  -->
     <div style="overflow: hidden">
       <div class="slide-container">
-        <div class="slide-box"><img src="/src/car1.png" /></div>
+        <div class="slide-box">
+          <img src="/src/car1.png" draggable="false" />
+        </div>
         <div class="slide-box"><img src="/src/car2.png" /></div>
         <div class="slide-box"><img src="/src/car3.png" /></div>
       </div>
@@ -40,10 +42,22 @@
     <!-- mousedown,mouseup,mousemove 
          현재 마우스 좌표 보여줌 : e.clientX -->
     <script>
+      // 내가 mousedown한거 - mousemove한거 = 움직인거리
+      //그치만 + - 좌표계에 익숙한 우리니깐, 두 값을 바꿔서 'e.clientX - 시작좌표'
+      let 시작좌표 = 0;
+      document
+        .querySelectorAll(".slide-box")[0]
+        .addEventListener("mousedown", (e) => {
+          시작좌표 = e.clientX;
+        });
+
       document
         .querySelectorAll(".slide-box")[0]
         .addEventListener("mousemove", (e) => {
-          console.log(e.clientX);
+          console.log(e.clientX - 시작좌표);
+          document.querySelector(
+            ".slide-container"
+          ).style.transform = `translateX(-${e.clientX - 시작좌표}vw)`;
         });
     </script>
 
