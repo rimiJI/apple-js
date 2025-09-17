@@ -1,0 +1,159 @@
+<!-- 장바구니기능 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니기능</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    >
+      ul.list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .tab-button {
+        display: block;
+        padding: 10px 20px 10px 20px;
+        float: left;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        color: grey;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .orange {
+        border-top: 2px solid orange;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid white;
+        border-left: 1px solid #ccc;
+        color: black;
+        margin-top: -2px;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <!--         카드1
+        <div class="col-sm-4">
+          <img src="https://placehold.co/600" class="w-100" />
+          <h5>Card title</h5>
+          <p>가격 : 70000</p>
+        </div>
+        카드2
+        <div class="col-sm-4">
+          <img src="https://placehold.co/600" class="w-100" />
+          <h5>Card title</h5>
+          <p>가격 : 70000</p>
+        </div>
+        카드3
+        <div class="col-sm-4">
+          <img src="https://placehold.co/600" class="w-100" />
+          <h5>Card title</h5>
+          <p>가격 : 70000</p>
+        </div> -->
+      </div>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="more">더보기</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="price">가격정렬</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="sort1">이름정렬</button>
+    </div>
+
+    <script>
+      let products = [
+        { id: 0, price: 70000, title: "Blossom Dress" },
+        { id: 1, price: 50000, title: "Springfield Shirt" },
+        { id: 2, price: 60000, title: "Black Monastery" },
+      ];
+
+      /**
+       * 상품 목록을 받아 화면에 카드들을 그려주는 함수
+       * @param {Array} items - 화면에 표시할 상품 객체 배열
+       */
+      function renderProducts(items) {
+        const container = document.querySelector(".row");
+        container.innerHTML = ""; // 기존 카드들을 모두 지웁니다.
+        items.forEach((item) => {
+          const template = `
+            <div class="col-sm-4">
+              <img src="https://placehold.co/600" class="w-100">
+              <h5>${item.title}</h5>
+              <p>가격 : ${item.price}</p>
+            </div>
+          `;
+          container.insertAdjacentHTML("beforeend", template);
+        });
+      }
+
+      // 페이지가 처음 로드될 때 카드들을 렌더링
+      renderProducts(products);
+
+      //------- ♦️♦️버튼을 누르면 가격순으로 정렬
+      document.getElementById("price").addEventListener("click", () => {
+        products.sort((a, b) => a.price - b.price);
+        renderProducts(products); // 정렬된 데이터로 다시 렌더링
+      });
+
+      //------- ♦️♦️버튼을 누르면 이름순으로 정렬
+      document.getElementById("sort1").addEventListener("click", () => {
+        products.sort((a, b) => a.title.localeCompare(b.title));
+        renderProducts(products); // 정렬된 데이터로 다시 렌더링
+        console.log(products);
+      });
+    </script>
+
+    <script>
+      //-------♦️더보기 버튼을 누르면 세개 추가하기
+      document.getElementById("more").addEventListener("click", () => {
+        fetch("https://codingapple1.github.io/js/more1.json")
+          .then((r) => r.json())
+          .then((d) => {
+            products = products.concat(d); // 🔹 누적 저장
+            d.forEach((a, i) => {
+              let 템플릿 = `
+          <div class="col-sm-4">
+            <img src="https://placehold.co/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>
+        `;
+              // ← jQuery의 $(".row").append(템플릿) 대신
+              document
+                .querySelector(".row")
+                .insertAdjacentHTML("beforeend", 템플릿);
+            });
+          })
+          .catch((e) => console.log("실패..:", e));
+      });
+    </script>
+  </body>
+</html>

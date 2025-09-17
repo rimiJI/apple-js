@@ -35,8 +35,20 @@
     <button class="next">▶</button>
 
     <!-- 스와이프기능 -->
+    <!-- 1.내가 드래그한 거리만큼 사진도 왼쪽으루 움직
+         2.100px이상 드래그시 손놓으면 2사진 보임 - 아니면 다시 1번사진 -->
+    <!-- mousedown,mouseup,mousemove 
+         현재 마우스 좌표 보여줌 : e.clientX -->
     <script>
-      console.log(clientX, clientY);
+      document
+        .querySelectorAll(".slide-box")[0]
+        .addEventListener("mousemove", (e) => {
+          console.log(e.clientX);
+        });
+    </script>
+
+    <script>
+      // console.log(clientX, clientY);
     </script>
 
     <!-- 버튼넘기기 기능 -->
