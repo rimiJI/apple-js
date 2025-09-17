@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>상품 목록</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* 카드 간격 & 내부 여백 */
+      .product-col {
+        margin-bottom: 1.5rem;
+      }
+      /* 카드 하단 우측에 버튼 고정 느낌 주기: 행→열 배치 + 버튼 위 여백 */
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .buy {
+        align-self: flex-end;
+      } /* 우측 정렬 */
+    </style>
+  </head>
+  <body>
+    <div class="container py-3">
+      <div class="d-flex gap-2 mb-3">
+        <button class="btn btn-danger" id="btn-more">더보기</button>
+        <button class="btn btn-outline-primary" id="btn-sort-price">
+          가격순 정렬
+        </button>
+        <button class="btn btn-outline-secondary" id="btn-sort-title">
+          이름순 정렬
+        </button>
+      </div>
+
+      <div class="row" id="list"></div>
+    </div>
+
+    <script defer>
+      // ---- 데이터 (메모리의 단 하나의 소스) ----
+      let products = [
+        { id: 0, price: 70000, title: "Blossom Dress" },
+        { id: 1, price: 50000, title: "Springfield Shirt" },
+        { id: 2, price: 60000, title: "Black Monastery" },
+      ];
+
+      // ---- DOM 참조 ----
+      const $list = document.getElementById("list");
+      const $btnMore = document.getElementById("btn-more");
+      const $btnSortPrice = document.getElementById("btn-sort-price");
+      const $btnSortTitle = document.getElementById("btn-sort-title");
+
+      // ---- 템플릿/렌더 ----
+      const createCard = (item) => `
+      <div class="col-sm-4 product-col">
+        <div class="card h-100">
+          <img src="https://placehold.co/600" class="card-img-top" alt="${
+            item.title
+          }">
+          <div class="card-body">
+            <h5 class="card-title mb-1">${item.title}</h5>
+            <p class="card-text mb-0">가격 : ${item.price.toLocaleString()}</p>
+            <button class="buy btn btn-sm btn-outline-primary mt-2" data-id="${
+              item.id
+            }">구매</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+      const render = (list = products) => {
+        $list.innerHTML = list.map(createCard).join("");
+      };
+
+      // 초기 렌더
+      render();
+
+      // ---- 이벤트: 정렬 ----
+      $btnSortPrice.addEventListener("click", () => {
+        products.sort((a, b) => a.price - b.price);
+        render();
+      });
+
+      $btnSortTitle.addEventListener("click", () => {
+        products.sort((a, b) => a.title.localeCompare(b.title));
+        render();
+      });
+
+      // ---- 이벤트: 더보기 ----
+      $btnMore.addEventListener("click", async () => {
+        try {
+          const res = await fetch(
+            "https://codingapple1.github.io/js/more1.json"
+          );
+          const newItems = await res.json();
+          products = products.concat(newItems); // 데이터 누적
+          // 새로 들어온 것만 추가 렌더(전체 리렌더보다 성능/깜빡임↓)
+          const html = newItems.map(createCard).join("");
+          $list.insertAdjacentHTML("beforeend", html);
+        } catch (e) {
+          console.log("실패..:", e);
+        }
+      });
+
+      // ---- 이벤트 위임: 구매 버튼 ----
+      $list.addEventListener("click", (e) => {
+        const btn = e.target.closest(".buy");
+        if (!btn) return;
+        const id = Number(btn.dataset.id);
+        const item = products.find((p) => p.id === id);
+        if (item) {
+          // 여기서 장바구니 로직 등 연결
+          alert(`"${item.title}" 구매 시뮬레이션!`);
+        }
+      });
+
+      // ---- 참고: 로컬스토리지 직/역직렬화 예시(동작 확인용) ----
+      const arr = [1, 2, 3];
+      localStorage.setItem("arr", JSON.stringify(arr)); // 저장 (문자열)
+      const parsed = JSON.parse(localStorage.getItem("arr")); // 복원 (배열)
+      // console.log(parsed);
+    </script>
+  </body>
+</html>
