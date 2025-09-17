@@ -45,19 +45,23 @@
       // 내가 mousedown한거 - mousemove한거 = 움직인거리
       //그치만 + - 좌표계에 익숙한 우리니깐, 두 값을 바꿔서 'e.clientX - 시작좌표'
       let 시작좌표 = 0;
+      let 눌름 = false;
       document
         .querySelectorAll(".slide-box")[0]
         .addEventListener("mousedown", (e) => {
           시작좌표 = e.clientX;
+          눌름 = true;
         });
 
       document
         .querySelectorAll(".slide-box")[0]
         .addEventListener("mousemove", (e) => {
           console.log(e.clientX - 시작좌표);
-          document.querySelector(
-            ".slide-container"
-          ).style.transform = `translateX(${e.clientX - 시작좌표}vw)`;
+          if (눌름) {
+            document.querySelector(
+              ".slide-container"
+            ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
+          }
         });
     </script>
 
