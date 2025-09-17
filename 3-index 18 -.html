@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      ul.list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .tab-button {
+        display: block;
+        padding: 10px 20px 10px 20px;
+        float: left;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        color: grey;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .orange {
+        border-top: 2px solid orange;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid white;
+        border-left: 1px solid #ccc;
+        color: black;
+        margin-top: -2px;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <!-- 상품 카드가 여기에 동적으로 추가됩니다. -->
+      </div>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="more">더보기</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="price">가격정렬</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="sort1">이름정렬</button>
+    </div>
+
+    <!-- 로컬스토리지 [application - LocalStorage & SesstionStorage] -->
+    <!-- 용량 5MB 문자/숫자만 가능 -->
+    <!-- LocalStorage임시저장소같은것 & SesstionStorage새로고침하면 사라짐 -->
+    <!-- array/object를 로컬스토리지에 저장하면 강제로 문자로 바꿔서 저장됨 → 그래서 application - LocalStorage 가보면 해당 키의 value값이 String으로 보이는거다 -->
+    <!-- array/object -> JSON 변환하고 싶으면 ***JSON.stringify()*** -->
+    <!-- JSON -> array/object 변환하고 싶으면 ***JSON.parse()***  -->
+    <script>
+      //브라우저에저장 : JSON.strigify()
+      let arr = [1, 2, 3];
+      let newarr = JSON.stringify(arr); //직렬화해서 제이슨으로~
+      localStorage.setItem("메롱", arr); //{메롱 :	1,2,3} 값value가 string
+      localStorage.setItem("뉴메롱", newarr); //{뉴메롱 : [1,2,3]} 값value가 array
+      //JS에 꺼내쓰기: JSON.parse()
+      let outarr = localStorage.getItem("뉴메롱");
+      console.log(outarr); //string [1,2,3]
+      outarr = JSON.parse(outarr); //어레이,객체로 바꾸고싶음
+      console.log(outarr); //arr [1, 2, 3]
+    </script>
+
+    <!-- 상품 카드 기능 스크립트 -->
+    <script>
+      // 데이터 저장소
+      var products = [
+        { id: 0, price: 70000, title: "Blossom Dress" },
+        { id: 1, price: 50000, title: "Springfield Shirt" },
+        { id: 2, price: 60000, title: "Black Monastery" },
+      ];
+
+      // --- 템플릿 및 렌더링 함수 ---
+
+      // 1. 카드 1개 HTML 생성 함수 (재사용)
+      function createCardTemplate(item) {
+        return `
+        <div class="col-sm-4 mb-4">
+          <img src="https://placehold.co/600" class="w-100">
+          <h5>${item.title}</h5>
+          <p>가격 : ${item.price}</p>
+          <button class="buy btn btn-sm btn-outline-primary mt-2 float-end">구매</button>
+        </div>
+
+      `;
+      }
+
+      function renderProducts(productsToRender) {
+        const container = document.querySelector(".row");
+        container.innerHTML = productsToRender.map(createCardTemplate).join("");
+      }
+
+      // --- 초기 렌더링 ---
+      renderProducts(products);
+
+      // --- 이벤트 리스너 ---
+
+      // 가격순 정렬
+      document.getElementById("price").addEventListener("click", () => {
+        products.sort((a, b) => a.price - b.price);
+        renderProducts(products); // 다시 그리기
+      });
+
+      // 이름순 정렬
+      document.getElementById("sort1").addEventListener("click", () => {
+        products.sort((a, b) => a.title.localeCompare(b.title));
+        renderProducts(products); // 다시 그리기
+      });
+
+      // 더보기
+      document.getElementById("more").addEventListener("click", () => {
+        fetch("https://codingapple1.github.io/js/more1.json")
+          .then((r) => r.json())
+          .then((newItems) => {
+            // 1. 전체 데이터 배열에 새 아이템 추가
+            products = products.concat(newItems);
+            // 2. 새로 가져온 아이템들만 HTML로 변환
+            const newCardsHtml = newItems.map(createCardTemplate).join("");
+            // 3. 기존 내용 뒤에 추가
+            document
+              .querySelector(".row")
+              .insertAdjacentHTML("beforeend", newCardsHtml);
+          })
+          .catch((e) => console.log("실패..:", e));
+      });
+    </script>
+  </body>
+</html>
