@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>장바구니</title>
+    <title>장바구니01</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -52,7 +52,7 @@
 
   <body>
     <div class="container">
-      <div class="row">
+      <div class="row" id="list">
         <!-- 상품 카드가 여기에 동적으로 추가  -->
       </div>
     </div>
@@ -98,13 +98,14 @@
       // --- 템플릿 및 렌더링 함수 ---
 
       // 1. 카드 1개 HTML 생성 함수 (재사용)
+      //⚠️어떤 '구매' 버튼을 눌렀는지 컴퓨터에게 알려주려면, 상품 카드를 만들 때 버튼에 data-id="${item.id}" 코드를 추가해서 상품의 고유 ID를 심어줘야 합니다.
       function createCardTemplate(item) {
         return `
         <div class="col-sm-4 mb-4">
           <img src="https://placehold.co/600" class="w-100">
           <h5>${item.title}</h5>
           <p>가격 : ${item.price}</p>
-          <button class="buy btn btn-sm btn-outline-primary mt-2 float-end">구매</button>
+          <button class="buy btn btn-sm btn-outline-primary mt-2 float-end" data-id="${item.id}">구매</button>
         </div>
 
       `;
@@ -119,6 +120,32 @@
       renderProducts(products);
 
       // --- 이벤트 리스너 ---
+
+      // 구매 버튼
+      document.getElementById("list").addEventListener("click", (e) => {
+        const btn = e.target.closest(".buy");
+        if (!btn) return;
+        const id = Number(btn.dataset.id);
+        const item = products.find((p) => p.id === id); //⚠️중괄호 없애야 리턴 자동으로 이뤄지게 (products.find() 함수는 조건에 맞는 상품을 찾으면 그 상품을 **반환(return)**해줘야 합니다. )
+        if (item) {
+          //장바구니로직 연결
+          //-----------------------
+          //로컬스토리지에 cart 데이터를 변수로 만들기
+          let cart = localStorage.getItem("cart");
+          //cart없는 경우 - 빈 배열로 시작하여라
+          if (cart == null) {
+            cart = [];
+          } //있는 경우 - 글자를 배열로 바꿔주기
+          else {
+            cart = JSON.parse(cart);
+          }
+          // 배열이 된 cart에 상품제목들을 추가
+          cart.push(item.title);
+          // 배열을 JSON.직렬화하여 다시 localstorage에 저장
+          localStorage.setItem("cart", JSON.stringify(cart));
+          console.log(`${item.title} 상품을 장바구니에 담았습니다. `);
+        }
+      });
 
       // 가격순 정렬
       document.getElementById("price").addEventListener("click", () => {
