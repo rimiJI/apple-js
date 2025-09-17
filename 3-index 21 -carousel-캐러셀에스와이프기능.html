@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>캐러셀 Carousel</title>
+    <title>캐러셀 Carousel - 스와이프</title>
     <link rel="stylesheet" href="style.css" />
     <!-- bootstrap ---중에 CSS는 고정(정적)이므로 link에 -->
     <link
@@ -34,6 +34,12 @@
     <button class="slide-3">3</button>
     <button class="next">▶</button>
 
+    <!-- 스와이프기능 -->
+    <script>
+      console.log(clientX, clientY);
+    </script>
+
+    <!-- 버튼넘기기 기능 -->
     <script>
       // '.slide-1' 클래스를 가진 버튼을 클릭하면
       document.querySelector(".slide-1").addEventListener("click", () => {
