@@ -129,21 +129,25 @@
         const item = products.find((p) => p.id === id); //⚠️중괄호 없애야 리턴 자동으로 이뤄지게 (products.find() 함수는 조건에 맞는 상품을 찾으면 그 상품을 **반환(return)**해줘야 합니다. )
         if (item) {
           //장바구니로직 연결
-          //-----------------------
-          //로컬스토리지에 cart 데이터를 변수로 만들기
-          let cart = localStorage.getItem("cart");
-          //cart없는 경우 - 빈 배열로 시작하여라
-          if (cart == null) {
-            cart = [];
-          } //있는 경우 - 글자를 배열로 바꿔주기
-          else {
-            cart = JSON.parse(cart);
+          //----------------------------------------------------
+          // 1. 로컬 스토리지에서 'cart' 데이터 꺼내기
+          const cartString = localStorage.getItem("cart");
+
+          // 2. 데이터가 있으면 배열로 변환, 없으면 빈 배열로 초기화
+          const cartItems = cartString ? JSON.parse(cartString) : [];
+
+          // 3. 이미 장바구니에 있는지 확인 (배열에 특정 값이 있는지 검사할 땐 .includes() 사용)
+          if (cartItems.includes(item.title)) {
+            alert("이미 장바구니에 담긴 상품입니다.");
+            return; // 중복 추가 방지
           }
-          // 배열이 된 cart에 상품제목들을 추가
-          cart.push(item.title);
-          // 배열을 JSON.직렬화하여 다시 localstorage에 저장
-          localStorage.setItem("cart", JSON.stringify(cart));
-          console.log(`${item.title} 상품을 장바구니에 담았습니다. `);
+
+          // 4. 새 상품을 장바구니 배열에 추가
+          cartItems.push(item.title);
+
+          // 5. 변경된 배열을 다시 JSON 문자열로 만들어 로컬 스토리지에 저장
+          localStorage.setItem("cart", JSON.stringify(cartItems));
+          alert(`'${item.title}' 상품을 장바구니에 담았습니다.`);
         }
       });
 
