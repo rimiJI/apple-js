@@ -6,23 +6,28 @@
     <title>closest</title>
   </head>
   <body>
-    <!-- closest 클로우스트 예제 -->
+    <!-- ♦️closest 클로우스트 예제 -->
     <ul>
       <li>사과</li>
       <li>바나나</li>
       <li>포도</li>
     </ul>
-    <!-- innerHTML,innerText,textContent 예제-->
+    <!-- ♠️innerHTML,innerText,textContent 예제-->
+    <p id="msg">방가룽 <b>햅삐</b>칭구!</p>
 
     <script>
-      // closest 클로우스트 예제
+      // ♦️closest 클로우스트 예제
       document.querySelector("ul").addEventListener("click", (e) => {
         //ul 누르면 , li 찾아서 출력???
         const li = e.target.closest("li"); //e.target → 내가 실제로 딱 누른 “그것”
         console.log("클릭한 과일은? ", li.innerText); //closest("li") → 누른 "그것" 기준으로 위로 올라가면서 가장 가까운 <li>
       });
 
-      //  innerHTML,innerText,textContent 예제
+      //  ♠️innerHTML,innerText,textContent 예제
+      const $el = document.getElementById("msg");
+      console.log($el.innerText);
+      console.log($el.textContent);
+      console.log($el.innerHTML);
     </script>
   </body>
 </html>
