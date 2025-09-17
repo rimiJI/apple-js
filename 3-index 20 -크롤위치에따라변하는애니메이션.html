@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스크롤애니메이션</title>
+    <style>
+      /* sticky 요소들을 감싸는 부모 요소(.card-background)가 스크롤될 만큼 충분히 길어야만 작동 */
+      .card-background {
+        height: 3000px;
+        margin-top: 800px;
+        margin-bottom: 1600px;
+      }
+
+      .card-box img {
+        display: block;
+        margin: auto;
+        max-width: 80%;
+      }
+      .card-box {
+        position: sticky; /* 이 요소는 이제 '끈적이' 속성을 가집니다. */
+        top: 400px; /* 화면 상단에서 400px 떨어진 지점에 닿으면 거기에 고정됩니다. */
+        margin-top: 10px; /* 카드들 사이에 초기 간격을 줍니다. */
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card-background">
+      <div class="card-box">
+        <img src="src/card1-1.png" />
+      </div>
+      <div class="card-box">
+        <img src="src/card2-1.png" />
+      </div>
+      <div class="card-box">
+        <img src="src/card3-1.png" />
+      </div>
+    </div>
+
+    <script>
+      // 스크롤 이벤트를 감지하려면 window 객체에 직접 addEventListener를 사용해야
+      window.addEventListener("scroll", () => {
+        // 현재 스크롤된 Y축 위치는 window.scrollY 아주간단!
+        console.log("현재 스크롤 위치:", window.scrollY);
+
+        let y = window.scrollY;
+        const max1 = 900;
+        const max2 = 1060;
+        const start2 = 878;
+
+        // 첫 번째 카드: 0px부터 900px까지 점점 투명해짐
+        let yOpacity = 1 - y / max1;
+
+        // 두 번째 카드: 878px까지는 불투명하다가 2500px까지 점점 투명해짐
+        // (y - start2) / (max2 - start2)는 878px일 때 0, 2500px일 때 1이 되는 '진행률'입니다.
+        // ⭐이 진행률을 1에서 빼주면 투명도가 부드럽게 변합니다.
+        let yOpacity2 = y <= start2 ? 1 : 1 - (y - start2) / (max2 - start2);
+        //이건확인용 - ⭐너무 어렵다.
+        let progress = (y - start2) / (max2 - start2);
+        console.log("두번째 카드 진행률! ", progress);
+
+        // opacity 값은 0보다 작아지거나 1보다 커질 수 없으므로 보정해줍니다.
+        document.querySelectorAll(".card-box")[0].style.opacity = Math.max(
+          0,
+          yOpacity
+        );
+        document.querySelectorAll(".card-box")[1].style.opacity = Math.max(
+          0,
+          yOpacity2
+        );
+      });
+
+      /*
+      << scrollY에 관한 설명 >>
+      window.scrollY의 최대값이 페이지의 총 길이가 아니라,
+      사용자의 **브라우저 창 높이(clientHeight)**에 따라
+      계속 변하는 동적인 값
+      */
+    </script>
+  </body>
+</html>
