@@ -46,5 +46,39 @@
     let melon = cake.find((a) => a === "🍈");
     console.log(melon * 3); //NaN
     console.log(melon.repeat(3)); //🍈🍈🍈
+
+    //some
+    //조건에 맞는게 있니??
+    let fish = [10, 20, 30];
+    let anyFish = fish.some((a) => a > 15); //true
+
+    //every
+    //모두 일치하니?
+    let rabbit = [5, 6, 7];
+    let allRabbit = rabbit.every((a) => a > 5.5); //false
+
+    //reduce
+    //값 순회하며 누적하여 최종 하나의 값 도출
+    let donut = [1, 2, 3, 4];
+    let sumDonut = donut.reduce((sum, b) => sum + b, 0); // 10
+
+    //reverse
+    //역배열
+    let chicken = ["a", "b", "c"];
+    chicken.reverse();
+    console.log(chicken);
+
+    // sort
+    // 정렬 (단, 값자체를 바꿔버림)
+    let mango = ["힣", "나", "가"];
+    let mangoCount = [3, 1, 2];
+    mango.sort();
+    mangoCount.sort();
+    console.log(mango); //['가', '나', '힣']
+    console.log(mangoCount); //[1, 2, 3]
+
+    //set
+    //중복없는 특별 객체
+    let watermelon = new Set([1, 1, 1, 1, 1, 3]);
   </script>
 </body>
