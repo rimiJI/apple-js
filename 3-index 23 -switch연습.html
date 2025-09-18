@@ -1,0 +1,32 @@
+<head>
+  <title>switch 연습</title>
+</head>
+<body>
+  <div id="quiz">
+    <h4 style="color: grey">물에 빠지면 누구 구함?</h4>
+    <div>배우자</div>
+    <div>부모님</div>
+    <div>강아지</div>
+  </div>
+
+  <script>
+    document.querySelector("#quiz").addEventListener("click", (e) => {
+      switch (e.target.innerHTML) {
+        case "배우자":
+          alert("선택한 것에 책임을 지는 타입");
+          break;
+
+        case "부모님":
+          alert("효자효녀네요");
+          break;
+
+        case "강아지":
+          alert("강아지는 헤엄 잘치는데");
+          break;
+
+        default:
+          break;
+      }
+    });
+  </script>
+</body>
