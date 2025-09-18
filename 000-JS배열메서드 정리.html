@@ -13,4 +13,26 @@
 <head>
   <title>JS 배열 메서드 사용빈도 순 정리</title>
 </head>
-<body></body>
+<body>
+  <script>
+    // forEach
+    // 설명: 배열을 순회하면서 하나씩 꺼내 실행만 함.
+    // 특징: 리턴값 없음. 단순히 “돌면서 일하기”.
+    let cat = ["🐈", "😺", "🐈‍⬛"];
+    cat.forEach((a) => {
+      console.log(a);
+    });
+
+    // map
+    // 설명: 배열을 순회하면서 새 배열을 만듦.
+    // 특징: 변환된 값들이 담긴 새로운 배열 리턴.
+    let dog = ["🐕", "🐶", "🐩"];
+    let bark = [1, 2, 3];
+    // ❗이모지(문자열)에 곱셈(*)을 하면 NaN(Not a Number)
+    // 문자를 반복하려면 .repeat() 메소드를 사용
+    let dogCount = dog.map((a) => a.repeat(2)); //['🐕🐕', '🐶🐶', '🐩🐩']
+    let barkCount = bark.map((a) => a * 2); //[2, 4, 6]
+
+    //filter
+  </script>
+</body>
