@@ -102,7 +102,8 @@
           //제한걸면 그 번호에서 다음넘버로 안넘어감
           idx = Math.min(maxIdx, idx + 1);
         } else if (움직인양 > 100) {
-          idx = Math.min(0, idx - 1);
+          // ❗ 수정: Math.min -> Math.max 로 변경!! 인덱스가 0 미만으로 내려가지 않도록 수정
+          idx = Math.max(0, idx - 1);
         }
         snapToIndex();
 
@@ -111,6 +112,30 @@
           $container.style.transition = "none";
         });
       });
+    </script>
+
+    <!-- 스와이프기능- 버튼과 연동 ( 아직 공부 안함. ) -->
+    <script>
+      document.querySelector(".slide-1").onclick = () => {
+        idx = 0;
+        snapToIndex();
+      };
+      document.querySelector(".slide-2").onclick = () => {
+        idx = 1;
+        snapToIndex();
+      };
+      document.querySelector(".slide-3").onclick = () => {
+        idx = 2;
+        snapToIndex();
+      };
+      document.querySelector(".before").onclick = () => {
+        idx = Math.max(0, idx - 1);
+        snapToIndex();
+      };
+      document.querySelector(".next").onclick = () => {
+        idx = Math.min(maxIdx, idx + 1);
+        snapToIndex();
+      };
     </script>
 
     <!-- 스와이프기능 - 모바일버전📱☝️ -->
