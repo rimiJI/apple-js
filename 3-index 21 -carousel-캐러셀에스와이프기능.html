@@ -46,6 +46,7 @@
       //그치만 + - 좌표계에 익숙한 우리니깐, 두 값을 바꿔서 'e.clientX - 시작좌표'
       let 시작좌표 = 0;
       let 눌름 = false;
+
       document
         .querySelectorAll(".slide-box")[0]
         .addEventListener("mousedown", (e) => {
@@ -61,6 +62,17 @@
             document.querySelector(
               ".slide-container"
             ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
+          }
+        });
+
+      document
+        .querySelectorAsll(".silde-box")[0]
+        .addEventListener("mouseup", () => {
+          땜 = false;
+          if (이동거리-100이하로넘어가면) {
+            2번사진보여주셈
+          }else{
+            1번사진보여주셈
           }
         });
     </script>
