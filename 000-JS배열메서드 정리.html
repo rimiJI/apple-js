@@ -14,6 +14,8 @@
   <title>JS 배열 메서드 사용빈도 순 정리</title>
 </head>
 <body>
+  <ul id="menu"></ul>
+
   <script>
     // map
     // *****귀여운버전
@@ -59,6 +61,14 @@
       console.log(a);
     });
     //**********실무버전
+    const item = ["공지사항", "이벤트", "FAQ"];
+    const $ul = document.querySelector("#menu");
+    item.forEach((t) => {
+      //❗❗⚠️♦️우와 어렵다!!!!
+      const $li = document.createElement("li");
+      $li.textContent = t;
+      $ul.appendChild($li);
+    });
 
     //find
     // *****귀여운버전
@@ -89,6 +99,7 @@
     let donut = [1, 2, 3, 4];
     let sumDonut = donut.reduce((sum, b) => sum + b, 0); // 10
     //**********실무버전
+    // → 누적 (장바구니 총합)
 
     //reverse
     // *****귀여운버전
