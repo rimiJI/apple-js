@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>캐러셀 Carousel - 스와이프</title>
+    <title>캐러셀 Carousel - 스와이프 전체</title>
     <link rel="stylesheet" href="style.css" />
     <!-- bootstrap ---중에 CSS는 고정(정적)이므로 link에 -->
     <link
@@ -59,30 +59,41 @@
       let idx = 0; // 🔢현재 슬라이드
 
       const $container = document.querySelector(".slide-container"); // 🧱
-      const $firstBox = document.querySelectorAll(".slide-box")[0]; // 📦
 
-      $firstBox.addEventListener("mousedown", (e) => {
+      //기준 위치 : 인덱스 → -100*idx vw
+      const snapToIndex = () => {
+        $container.style.transition = `transform 0.5s`; //부드러운 트렌지션
+        $container.style.transform = `translateX(${-100 * idx}vw)`; //사진이동
+      };
+
+      //드래그 시작
+      $container.addEventListener("mousedown", (e) => {
         시작좌표 = e.clientX;
         눌름 = true;
         // 드래그하는 동안에는 애니메이션 효과를 잠시 끕니다.
         $container.style.transition = "none";
       });
 
-      $firstBox.addEventListener("mousemove", (e) => {
+      // 드래그 중 (기준 + 드래그양)
+      //calc() : 단위가 다른 값끼리 계산할 때
+      $container.addEventListener("mousemove", (e) => {
         if (눌름) {
           // console.log(e.clientX - 시작좌표); // 디버깅용
-          document.querySelector(
-            ".slide-container"
-          ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
+          let 움직인양 = e.clientX - 시작좌표;
+
+          $container.style.transform = `translateX(calc(${
+            -100 * idx
+          }vw+ ${움직인양}px))`; //vw가 아닌 px
         }
       });
 
-      $firstBox.addEventListener("mouseup", (e) => {
+      //드래그 종료
+      $container.addEventListener("mouseup", (e) => {
         눌름 = false;
         // 마우스를 떼면 다시 애니메이션 효과를 적용 (적용값 따옴표로 감싸주기)
         $container.style.transition = "transform 0.5s";
 
-        if (e.clientX - 시작좌표 < -100) {
+        if (움직인양 < -100) {
           //-100px보다 넘어가게 많이 움직였으면 다음 사진으로
           $container.style.transform = "translateX(-100vw)";
         } else {
