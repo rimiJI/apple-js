@@ -52,13 +52,15 @@
         .addEventListener("mousedown", (e) => {
           시작좌표 = e.clientX;
           눌름 = true;
+          // 드래그하는 동안에는 애니메이션 효과를 잠시 끕니다.
+          document.querySelector(".slide-container").style.transition = "none";
         });
 
       document
         .querySelectorAll(".slide-box")[0]
         .addEventListener("mousemove", (e) => {
-          console.log(e.clientX - 시작좌표);
           if (눌름) {
+            // console.log(e.clientX - 시작좌표); // 디버깅용
             document.querySelector(
               ".slide-container"
             ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
@@ -66,13 +68,21 @@
         });
 
       document
-        .querySelectorAsll(".silde-box")[0]
-        .addEventListener("mouseup", () => {
-          땜 = false;
-          if (이동거리-100이하로넘어가면) {
-            2번사진보여주셈
-          }else{
-            1번사진보여주셈
+        .querySelectorAll(".slide-box")[0]
+        .addEventListener("mouseup", (e) => {
+          눌름 = false;
+          // 마우스를 떼면 다시 애니메이션 효과를 적용 (적용값 따옴표로 감싸주기)
+          document.querySelector(".slide-container").style.transition =
+            "transform 0.5s";
+
+          if (e.clientX - 시작좌표 < -100) {
+            //-100px보다 넘어가게 많이 움직였으면 다음 사진으로
+            document.querySelector(".slide-container").style.transform =
+              "translateX(-100vw)";
+          } else {
+            // 아니면 원래 사진으로
+            document.querySelector(".slide-container").style.transform =
+              "translateX(0vw)";
           }
         });
     </script>
