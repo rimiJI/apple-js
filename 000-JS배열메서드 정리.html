@@ -125,7 +125,19 @@
     mangoCount.sort();
     console.log(mango); //['가', '나', '힣']
     console.log(mangoCount); //[1, 2, 3]
-    //**********실무버전❓
+    //**********실무버전
+    const products2 = [
+      { name: "노트북", price: 1200000 },
+      { name: "마우스", price: 20000 },
+      { name: "키보드", price: 50000 },
+    ];
+    // 가격 오름차순
+    // products2.sort((a, b) => a.price - b.price); //노트북, 키보드, 마우스
+    // 최신 등록순 (id 큰 게 최신)
+    // products2.sort((a, b) => b.id - a.id); //노트북,마우스,키보드
+    // 역순 정렬 (reverse)
+    // products2.reverse();//키보드, 마우스, 노트북
+    //
 
     //set
     // *****귀여운버전
