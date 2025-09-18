@@ -1,0 +1,193 @@
+<!-- 아직 안함 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>캐러셀 Carousel - 스와이프</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- bootstrap ---중에 CSS는 고정(정적)이므로 link에 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <!-- 순서
+  1! 원하는구현기능과 동작방식 한글로 상세히 설명
+  2! 작고 쉬운것부터, 또는 큰 틀부터 개발
+  3! 그담에 변수로 만들기! 최적화하기 반복되는거 줄이기! 
+     좋지않은 기능있으면 잘 작동되는 방식으로 바꾸기!  -->
+  <body>
+    <!-- 여기에 캐러셀 코드을 적으세요 -->
+    <!-- *순서* 
+    1. div 슬라이드-컨테이너 
+    2. div 슬라이드-박스 3개 
+    3. img 각각 src속성에 이미지를 걸어주기 
+    4. div 스타일시트CSS에 overflow를 hidden으로  -->
+    <!-- draggable="false" 사진 못움직이게 막는거 -->
+    <div style="overflow: hidden">
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="/src/car1.png" draggable="false" />
+        </div>
+        <div class="slide-box">
+          <img src="/src/car2.png" draggable="false" />
+        </div>
+        <div class="slide-box">
+          <img src="/src/car3.png" draggable="false" />
+        </div>
+      </div>
+    </div>
+    <button class="before">◀</button>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">▶</button>
+
+    <!-- 스와이프기능 -->
+    <!-- 1.내가 드래그한 거리만큼 사진도 왼쪽으루 움직
+         2.100px이상 드래그시 손놓으면 2사진 보임 - 아니면 다시 1번사진 -->
+    <!-- mousedown,mouseup,mousemove 
+         현재 마우스 좌표 보여줌 : e.clientX -->
+    <script>
+      // 내가 mousedown한거 - mousemove한거 = 움직인거리
+      //그치만 + - 좌표계에 익숙한 우리니깐, 두 값을 바꿔서 'e.clientX - 시작좌표'
+      let 시작좌표 = 0; // 🎯
+      let 눌름 = false; // ✋
+      let idx = 0; // 🔢현재 슬라이드
+
+      const $container = document.querySelector(".slide-container"); // 🧱
+      const $firstBox = document.querySelectorAll(".slide-box")[0]; // 📦
+
+      $firstBox.addEventListener("mousedown", (e) => {
+        시작좌표 = e.clientX;
+        눌름 = true;
+        // 드래그하는 동안에는 애니메이션 효과를 잠시 끕니다.
+        $container.style.transition = "none";
+      });
+
+      $firstBox.addEventListener("mousemove", (e) => {
+        if (눌름) {
+          // console.log(e.clientX - 시작좌표); // 디버깅용
+          document.querySelector(
+            ".slide-container"
+          ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
+        }
+      });
+
+      $firstBox.addEventListener("mouseup", (e) => {
+        눌름 = false;
+        // 마우스를 떼면 다시 애니메이션 효과를 적용 (적용값 따옴표로 감싸주기)
+        $container.style.transition = "transform 0.5s";
+
+        if (e.clientX - 시작좌표 < -100) {
+          //-100px보다 넘어가게 많이 움직였으면 다음 사진으로
+          $container.style.transform = "translateX(-100vw)";
+        } else {
+          // 아니면 원래 사진으로
+          $container.style.transform = "translateX(0vw)";
+        }
+
+        //애니메이션 끝났을때만 transition끄기 (setTimeout은 일정시간 후 꺼지는거임, transitionend가 더 권장됨)
+        $container.addEventListener("transitionend", () => {
+          $container.style.transition = "none";
+        });
+      });
+    </script>
+
+    <!-- 스와이프기능 - 모바일버전📱☝️ -->
+    <!-- touchstart, touchmove, touchend -->
+    <script>
+      $firstBox.addEventListener("touchstart", (e) => {
+        시작좌표 = e.touches[0].clientX;
+        눌름 = true;
+        $container.style.transition = "none";
+      });
+
+      $firstBox.addEventListener("touchmove", (e) => {
+        if (눌름) {
+          document.querySelector(
+            ".slide-container"
+          ).style.transform = `translateX(${
+            e.touches[0].clientX - 시작좌표
+          }px)`; //vw가 아닌 px
+        }
+      });
+
+      $firstBox.addEventListener("touchend", (e) => {
+        눌름 = false;
+        $container.style.transition = "transform 0.5s";
+
+        if (e.changedTouches[0].clientX - 시작좌표 < -100) {
+          $container.style.transform = "translateX(-100vw)";
+        } else {
+          $container.style.transform = "translateX(0vw)";
+        }
+        $container.addEventListener("transitionend", () => {
+          $container.style.transition = "none";
+        });
+      });
+    </script>
+
+    <script>
+      // console.log(clientX, clientY);
+    </script>
+
+    <!-- 버튼넘기기 기능 -->
+    <script>
+      // '.slide-1' 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-1").addEventListener("click", () => {
+        document.querySelector(".slide-container").style.transform =
+          "translateX(0)";
+      });
+
+      // '.slide-2' 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-2").addEventListener("click", () => {
+        //slide-container의 스타일을 중 transform를 translateX(-100vw)로 바꿔주세요.
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-100vw)";
+      });
+
+      //".slide-3" 클래스를 가진 버튼을 클릭하면
+      document.querySelector(".slide-3").addEventListener("click", () => {
+        document.querySelector(".slide-container").style.transform =
+          "translateX(-200vw)";
+      });
+
+      //다음버튼구현
+      // 버튼을 클릭하면
+      // 슬라이더 컨테이너에 .스타일에 .트렌스폼을. = translateX()
+      let currentPage = 1; // 현재 보이는 슬라이드 번호 (1, 2, 3)
+      document.querySelector(".next").addEventListener("click", () => {
+        // 3번째 슬라이드에선 더이상 넘어가지 않도록 막기
+        if (currentPage >= 3) {
+          return;
+        }
+        document.querySelector(
+          ".slide-container"
+        ).style.transform = `translateX(-${currentPage}00vw)`;
+        currentPage += 1;
+        console.log(currentPage);
+      });
+
+      //이전버튼구현
+      document.querySelector(".before").addEventListener("click", () => {
+        if (currentPage <= 1) {
+          return;
+        }
+        // 현재 페이지(currentPage)에서 2를 빼야 이전 슬라이드의 위치가 됩니다.
+        // 예: 현재 3번 슬라이드(currentPage=3) -> 2번 슬라이드(-100vw)로 가려면 (3-2)*100 = 100
+        // 예: 현재 2번 슬라이드(currentPage=2) -> 1번 슬라이드(0vw)로 가려면 (2-2)*100 = 0
+        document.querySelector(
+          ".slide-container"
+        ).style.transform = `translateX(-${currentPage - 2}00vw)`;
+        currentPage -= 1;
+        console.log(currentPage);
+      });
+      //오류
+      //문자안에 미리선언한 변수를 넣고싶음 ``백틱을 사용해야함 ("",''는 안됨)
+    </script>
+  </body>
+</html>

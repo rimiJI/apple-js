@@ -14,6 +14,11 @@
       crossorigin="anonymous"
     />
   </head>
+  <!-- 순서
+  1! 원하는구현기능과 동작방식 한글로 상세히 설명
+  2! 작고 쉬운것부터, 또는 큰 틀부터 개발
+  3! 그담에 변수로 만들기! 최적화하기 반복되는거 줄이기! 
+     좋지않은 기능있으면 잘 작동되는 방식으로 바꾸기!  -->
   <body>
     <!-- 여기에 캐러셀 코드을 적으세요 -->
     <!-- *순서* 
@@ -21,13 +26,18 @@
     2. div 슬라이드-박스 3개 
     3. img 각각 src속성에 이미지를 걸어주기 
     4. div 스타일시트CSS에 overflow를 hidden으로  -->
+    <!-- draggable="false" 사진 못움직이게 막는거 -->
     <div style="overflow: hidden">
       <div class="slide-container">
         <div class="slide-box">
           <img src="/src/car1.png" draggable="false" />
         </div>
-        <div class="slide-box"><img src="/src/car2.png" /></div>
-        <div class="slide-box"><img src="/src/car3.png" /></div>
+        <div class="slide-box">
+          <img src="/src/car2.png" draggable="false" />
+        </div>
+        <div class="slide-box">
+          <img src="/src/car3.png" draggable="false" />
+        </div>
       </div>
     </div>
     <button class="before">◀</button>
@@ -44,47 +54,80 @@
     <script>
       // 내가 mousedown한거 - mousemove한거 = 움직인거리
       //그치만 + - 좌표계에 익숙한 우리니깐, 두 값을 바꿔서 'e.clientX - 시작좌표'
-      let 시작좌표 = 0;
-      let 눌름 = false;
+      let 시작좌표 = 0; // 🎯
+      let 눌름 = false; // ✋
 
-      document
-        .querySelectorAll(".slide-box")[0]
-        .addEventListener("mousedown", (e) => {
-          시작좌표 = e.clientX;
-          눌름 = true;
-          // 드래그하는 동안에는 애니메이션 효과를 잠시 끕니다.
-          document.querySelector(".slide-container").style.transition = "none";
+      const $container = document.querySelector(".slide-container"); // 🧱
+      const $firstBox = document.querySelectorAll(".slide-box")[0]; // 📦
+
+      $firstBox.addEventListener("mousedown", (e) => {
+        시작좌표 = e.clientX;
+        눌름 = true;
+        // 드래그하는 동안에는 애니메이션 효과를 잠시 끕니다.
+        $container.style.transition = "none";
+      });
+
+      $firstBox.addEventListener("mousemove", (e) => {
+        if (눌름) {
+          // console.log(e.clientX - 시작좌표); // 디버깅용
+          document.querySelector(
+            ".slide-container"
+          ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
+        }
+      });
+
+      $firstBox.addEventListener("mouseup", (e) => {
+        눌름 = false;
+        // 마우스를 떼면 다시 애니메이션 효과를 적용 (적용값 따옴표로 감싸주기)
+        $container.style.transition = "transform 0.5s";
+
+        if (e.clientX - 시작좌표 < -100) {
+          //-100px보다 넘어가게 많이 움직였으면 다음 사진으로
+          $container.style.transform = "translateX(-100vw)";
+        } else {
+          // 아니면 원래 사진으로
+          $container.style.transform = "translateX(0vw)";
+        }
+
+        //애니메이션 끝났을때만 transition끄기 (setTimeout은 일정시간 후 꺼지는거임, transitionend가 더 권장됨)
+        $container.addEventListener("transitionend", () => {
+          $container.style.transition = "none";
         });
+      });
+    </script>
 
-      document
-        .querySelectorAll(".slide-box")[0]
-        .addEventListener("mousemove", (e) => {
-          if (눌름) {
-            // console.log(e.clientX - 시작좌표); // 디버깅용
-            document.querySelector(
-              ".slide-container"
-            ).style.transform = `translateX(${e.clientX - 시작좌표}px)`; //vw가 아닌 px
-          }
+    <!-- 스와이프기능 - 모바일버전📱☝️ -->
+    <!-- touchstart, touchmove, touchend -->
+    <script>
+      $firstBox.addEventListener("touchstart", (e) => {
+        시작좌표 = e.touches[0].clientX;
+        눌름 = true;
+        $container.style.transition = "none";
+      });
+
+      $firstBox.addEventListener("touchmove", (e) => {
+        if (눌름) {
+          document.querySelector(
+            ".slide-container"
+          ).style.transform = `translateX(${
+            e.touches[0].clientX - 시작좌표
+          }px)`; //vw가 아닌 px
+        }
+      });
+
+      $firstBox.addEventListener("touchend", (e) => {
+        눌름 = false;
+        $container.style.transition = "transform 0.5s";
+
+        if (e.changedTouches[0].clientX - 시작좌표 < -100) {
+          $container.style.transform = "translateX(-100vw)";
+        } else {
+          $container.style.transform = "translateX(0vw)";
+        }
+        $container.addEventListener("transitionend", () => {
+          $container.style.transition = "none";
         });
-
-      document
-        .querySelectorAll(".slide-box")[0]
-        .addEventListener("mouseup", (e) => {
-          눌름 = false;
-          // 마우스를 떼면 다시 애니메이션 효과를 적용 (적용값 따옴표로 감싸주기)
-          document.querySelector(".slide-container").style.transition =
-            "transform 0.5s";
-
-          if (e.clientX - 시작좌표 < -100) {
-            //-100px보다 넘어가게 많이 움직였으면 다음 사진으로
-            document.querySelector(".slide-container").style.transform =
-              "translateX(-100vw)";
-          } else {
-            // 아니면 원래 사진으로
-            document.querySelector(".slide-container").style.transform =
-              "translateX(0vw)";
-          }
-        });
+      });
     </script>
 
     <script>
